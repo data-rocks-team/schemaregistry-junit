@@ -1,0 +1,59 @@
+plugins {
+    id 'java-library'
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        // Add Confluent maven repo for Confluent dependencies
+        maven {
+            url "http://packages.confluent.io/maven/"
+        }
+        // Required for com.github.everit-org.json-schema:org.everit.json.schema:
+        maven {
+            url "https://jitpack.io"
+        }
+    }
+}
+
+subprojects {
+
+    apply plugin: 'java-library'
+
+    // Specific Junit configuration
+    if (it.name == 'schemaregistry-junit-test-utils') {
+        // schemaregistry-junit-test-utils is shared between Junit4 and Junit5 therefore it should not depend on any
+        // of these two libraries
+    } else if (it.name.contains('junit4')) {
+        // Use Junit4 while testing modules targeting Junit4
+        dependencies {
+            testImplementation "junit:junit:$junit4Version"
+        }
+    } else {
+        // By default tests use Junit5
+        dependencies {
+            testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+
+            testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
+            testImplementation "org.junit.jupiter:junit-jupiter-params:$junitJupiterVersion"
+        }
+
+        test {
+            // Use junit platform for unit tests
+            useJUnitPlatform()
+        }
+    }
+
+    dependencies {
+        // Lombok configuration
+        compileOnly "org.projectlombok:lombok:$lombokVersion"
+        annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+        testImplementation "org.projectlombok:lombok:$lombokVersion"
+        testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+        implementation "org.slf4j:slf4j-api:$slf4jVersion"
+        implementation "org.slf4j:slf4j-simple:$slf4jVersion"
+
+        testImplementation "org.assertj:assertj-core:$assertjVersion"
+    }
+}

@@ -1,0 +1,6 @@
+rootProject.name = 'schemaregistry-junit'
+
+include 'schemaregistry-junit-core',
+        'schemaregistry-junit4',
+        'schemaregistry-junit5',
+        'schemaregistry-junit-test:schemaregistry-junit-test-utils'

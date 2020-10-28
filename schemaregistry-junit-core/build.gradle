@@ -1,0 +1,12 @@
+dependencies {
+    // SchemaRegistry is not leak into users classpath to allow the test DSL to support multiple
+    // versions at the same time
+    implementation "io.confluent:kafka-schema-registry:$confluentVersion"
+    implementation "io.confluent:kafka-schema-registry-client:$confluentVersion"
+
+    implementation "org.apache.curator:curator-test:$apacheCuratorVersion"
+
+    testImplementation "com.salesforce.kafka.test:kafka-junit5:$kafkaJunitVersion"
+    testImplementation "org.testcontainers:testcontainers:$testcontainersVersion"
+    testImplementation "org.testcontainers:junit-jupiter:$testcontainersVersion"
+}

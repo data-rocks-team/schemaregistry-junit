@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package com.datarocks.schemaregistry.test;
+
+message MyRecord {
+  string f1 = 1;
+}

@@ -1,0 +1,10 @@
+dependencies {
+    api project(':schemaregistry-junit-core')
+
+    implementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
+    runtimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+
+    testImplementation project(':schemaregistry-junit-test:schemaregistry-junit-test-utils')
+
+    testImplementation "com.salesforce.kafka.test:kafka-junit5:$kafkaJunitVersion"
+}
