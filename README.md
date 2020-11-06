@@ -1,6 +1,7 @@
 # schemaregistry-junit
 
 ![GitHub](https://img.shields.io/github/license/data-rocks-team/schemaregistry-junit)
+[![Actions Status](https://github.com/data-rocks-team/schemaregistry-junit/workflows/build/badge.svg)](https://github.com/data-rocks-team/schemaregistry-junit/actions)
 
 Wrapping [Confluent Schema Registry](https://docs.confluent.io/current/schema-registry/), **schemaregistry-junit** 
 allows developers to create and run integration tests using [JUnit](https://junit.org/) against a "real" 
