@@ -7,14 +7,34 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 import java.util.Properties;
 
+/**
+ * Creates and stands up an internal test SchemaRegistry to be shared across test cases within the same test class.
+ *
+ * Example within your Test class.
+ *
+ *   &#064;RegisterExtension
+ *   public static final SharedSchemaRegistryTestResource sharedSchemaRegistryTestResource =
+ *          new SharedSchemaRegistryTestResource()
+ *                  .withBootstrapServers("localhost:9092");
+ *
+ * Within your test case method:
+ *   schemaRegistry.schemaRegistryTestUtils().schemaRegistryClient()...
+ */
 public class SharedSchemaRegistryTestResource
         extends SchemaRegistryTestResource<SharedSchemaRegistryTestResource>
         implements BeforeAllCallback, AfterAllCallback {
 
+    /**
+     * Default constructor.
+     */
     public SharedSchemaRegistryTestResource() {
         super();
     }
 
+    /**
+     * Constructor allowing passing additional SchemaRegistry properties.
+     * @param properties properties for SchemaRegistry server.
+     */
     public SharedSchemaRegistryTestResource(Properties properties) {
         super(properties);
     }
