@@ -7,6 +7,7 @@ import java.util.AbstractMap;
 import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 public class SchemaRegistryPropertiesTest {
 
@@ -41,7 +42,7 @@ public class SchemaRegistryPropertiesTest {
     }
 
     @Test
-    void shouldSetBootstrapServerViaSupplier() {
+    void shouldSetBootstrapServerViaSupplier() throws Exception {
         SchemaRegistryProperties srProperties = new SchemaRegistryProperties(new Properties());
         srProperties.addBootstrapServersSupplier(() -> "value");
 
@@ -50,7 +51,7 @@ public class SchemaRegistryPropertiesTest {
     }
 
     @Test
-    void shouldSetBootstrapServerViaProperty() {
+    void shouldSetBootstrapServerViaProperty() throws Exception {
         SchemaRegistryProperties srPropAddProp = new SchemaRegistryProperties(new Properties());
         srPropAddProp.addProperty(SchemaRegistryConfig.KAFKASTORE_BOOTSTRAP_SERVERS_CONFIG, "value");
 
@@ -66,7 +67,7 @@ public class SchemaRegistryPropertiesTest {
     }
 
     @Test
-    void shouldUseDefaultValues() {
+    void shouldUseDefaultValues() throws Exception {
         SchemaRegistryProperties properties = new SchemaRegistryProperties(new Properties());
         properties.addProperty(SchemaRegistryConfig.KAFKASTORE_BOOTSTRAP_SERVERS_CONFIG, "value");
 
@@ -78,7 +79,7 @@ public class SchemaRegistryPropertiesTest {
     }
 
     @Test
-    void shouldUseOverrideDefaultValues() {
+    void shouldUseOverrideDefaultValues() throws Exception {
         SchemaRegistryProperties propAddProp = new SchemaRegistryProperties(new Properties());
         propAddProp.addProperty(SchemaRegistryConfig.KAFKASTORE_BOOTSTRAP_SERVERS_CONFIG, "value");
         propAddProp.addProperty(SchemaRegistryConfig.DEBUG_CONFIG, false);
@@ -99,5 +100,23 @@ public class SchemaRegistryPropertiesTest {
                         new AbstractMap.SimpleEntry<>(SchemaRegistryConfig.LISTENERS_CONFIG, "http://localhost:8081"),
                         new AbstractMap.SimpleEntry<>(SchemaRegistryConfig.HOST_NAME_CONFIG, "localhost"),
                         new AbstractMap.SimpleEntry<>(SchemaRegistryConfig.DEBUG_CONFIG, false));
+    }
+
+    @Test
+    void shouldThrowOnNullName() {
+        SchemaRegistryProperties properties = new SchemaRegistryProperties(new Properties());
+
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> properties.addProperty(null, null))
+                .withMessage("Cannot pass null or empty name argument");
+    }
+
+    @Test
+    void shouldThrowOnEmptyName() {
+        SchemaRegistryProperties properties = new SchemaRegistryProperties(new Properties());
+
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> properties.addProperty("", null))
+                .withMessage("Cannot pass null or empty name argument");
     }
 }

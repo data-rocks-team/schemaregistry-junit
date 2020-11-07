@@ -1,7 +1,8 @@
 package com.datarocks.schemaregistry.test;
 
 import io.confluent.kafka.schemaregistry.rest.SchemaRegistryConfig;
-import lombok.SneakyThrows;
+import io.confluent.rest.RestConfigException;
+import joptsimple.internal.Strings;
 
 import java.util.Optional;
 import java.util.Properties;
@@ -55,8 +56,13 @@ class SchemaRegistryProperties {
      * Add a new property used to configure {@link SchemaRegistryProperties}.
      * @param name {@link String} defining the key property.
      * @param value {@link String} stating the value of the property.
+     * @throws IllegalArgumentException if name argument is null or empty.
      */
     void addProperty(String name, Object value) {
+        if (Strings.isNullOrEmpty(name)) {
+            throw new IllegalArgumentException("Cannot pass null or empty name argument");
+        }
+
         properties.put(name, value);
     }
 
@@ -75,9 +81,9 @@ class SchemaRegistryProperties {
      * Create an instance of {@link SchemaRegistryConfig} that can be used to start up a
      * {@link io.confluent.kafka.schemaregistry.rest.SchemaRegistryRestApplication}.
      * @return an instance of {@link SchemaRegistryConfig} which can be used to configure a SchemaRegistry server.
+     * @throws RestConfigException if {@link SchemaRegistryConfig} cannot be built.
      */
-    @SneakyThrows
-    SchemaRegistryConfig schemaRegistryConfig() {
+    SchemaRegistryConfig schemaRegistryConfig() throws RestConfigException {
         Optional.ofNullable(bootstrapServersSupplier).ifPresent(s ->
                 addProperty(SchemaRegistryConfig.KAFKASTORE_BOOTSTRAP_SERVERS_CONFIG, s.get()));
 

@@ -50,9 +50,12 @@ public class SchemaRegistryTestResource<T extends SchemaRegistryTestResource> {
      * The supplier will be invoked only before starting the server
      * @param bootstrapServers Kafka connection string supplier
      * @return {@link SchemaRegistryTestResource<T>} for method chaining.
+     * @throws IllegalStateException if method called after service has started.
      */
     @SuppressWarnings("unchecked")
     public T withBootstrapServers(Supplier<String> bootstrapServers) {
+        validateServerExist("Cannot add bootstrap servers after service has started.");
+
         this.schemaRegistryProperties.addBootstrapServersSupplier(bootstrapServers);
         return (T) this;
     }
@@ -80,9 +83,12 @@ public class SchemaRegistryTestResource<T extends SchemaRegistryTestResource> {
      * @param name SchemaRegistry configuration property name.
      * @param value Value to set for the configuration property.
      * @return {@link SchemaRegistryTestResource<T>} instance for method chaining.
+     * @throws IllegalStateException if method called after service has started.
      */
     @SuppressWarnings("unchecked")
     public T withProperty(String name, Object value) {
+        validateServerExist("Cannot add properties after service has started.");
+
         schemaRegistryProperties.addProperty(name, value);
         return (T) this;
     }
