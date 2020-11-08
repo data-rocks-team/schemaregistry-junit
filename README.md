@@ -16,8 +16,8 @@ This project is highly inspired by [kafka-junit](https://github.com/salesforce/k
 - Support all SchemaRegistry version from 4.0.0 to the latest
 
 ## Regression testing
-Every build is tested against the latest patch version of every minor version since 4.0.0. For more details, check 
-[schemaregistry-junit-regression-test](/schemaregistry-junit-test/schemaregistry-junit-regression-test).
+Every build is automatically tested against the latest patch version of every minor version since 4.0.0. For more 
+details, check [schemaregistry-junit-regression-test](/schemaregistry-junit-test/schemaregistry-junit-regression-test).
 
 ## Contributing
 Found a bug? Think you've got an awesome feature you want to add? We welcome contributions!
