@@ -3,4 +3,13 @@ rootProject.name = 'schemaregistry-junit'
 include 'schemaregistry-junit-core',
         'schemaregistry-junit4',
         'schemaregistry-junit5',
-        'schemaregistry-junit-test:schemaregistry-junit-test-utils'
+        'schemaregistry-junit-test:schemaregistry-junit-test-utils',
+        'schemaregistry-junit-test:schemaregistry-junit-regression-test:baseline',
+        'schemaregistry-junit-test:schemaregistry-junit-regression-test:4.0',
+        'schemaregistry-junit-test:schemaregistry-junit-regression-test:4.1',
+        'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.0',
+        'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.1',
+        'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.2',
+        'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.3',
+        'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.4',
+        'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.5'

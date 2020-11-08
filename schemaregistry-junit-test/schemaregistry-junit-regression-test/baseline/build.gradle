@@ -1,0 +1,15 @@
+dependencies {
+    api project(':schemaregistry-junit5')
+
+    api "com.salesforce.kafka.test:kafka-junit5:$kafkaJunitVersion"
+
+    // SchemaRegistry dependencies are only needed for compiling here because they will be overridden with different
+    // versions for every regression test
+    compileOnly "io.confluent:kafka-schema-registry-client:$confluentVersion"
+    compileOnly "io.confluent:kafka-avro-serializer:$confluentVersion"
+
+    compileOnly "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
+    compileOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+
+    compileOnly "org.assertj:assertj-core:$assertjVersion"
+}
