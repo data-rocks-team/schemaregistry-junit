@@ -3,5 +3,5 @@ dependencies {
 
     testImplementation 'io.confluent:kafka-schema-registry:4.1.4'
     testImplementation 'io.confluent:kafka-schema-registry-client:4.1.4'
-    testImplementation 'io.confluent:kafka-avro-serializer:4.1.4'
+    testImplementation 'io.confluent:kafka-avro-serializer:6.0.0'
 }
