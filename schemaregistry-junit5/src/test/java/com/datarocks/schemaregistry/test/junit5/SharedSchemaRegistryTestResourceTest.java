@@ -16,40 +16,42 @@ import java.util.stream.Stream;
 
 public class SharedSchemaRegistryTestResourceTest {
 
-    @RegisterExtension
-    @Order(1)
-    public static final SharedKafkaTestResource kafka = new SharedKafkaTestResource()
-            .withBrokers(1);
+  @RegisterExtension
+  @Order(1)
+  public static final SharedKafkaTestResource kafka = new SharedKafkaTestResource()
+      .withBrokers(1);
 
-    @RegisterExtension
-    @Order(2)
-    // SharedSchemaRegistryTestResource depends on SharedKafkaTestResource, therefore SharedKafkaTestResource should be
-    // instantiated before SharedSchemaRegistryTestResource can be created.
-    static final SharedSchemaRegistryTestResource schemaRegistry = new SharedSchemaRegistryTestResource()
-            .withBootstrapServers(kafka::getKafkaConnectString);
+  @RegisterExtension
+  @Order(2)
+  // SharedSchemaRegistryTestResource depends on SharedKafkaTestResource, therefore
+  // SharedKafkaTestResource should be instantiated before SharedSchemaRegistryTestResource can
+  // be created.
+  static final SharedSchemaRegistryTestResource schemaRegistry =
+      new SharedSchemaRegistryTestResource()
+          .withBootstrapServers(kafka::getKafkaConnectString);
 
-    @SneakyThrows
-    @ParameterizedTest
-    @MethodSource("testScenarios")
-    <K, V> void shouldProduceConsumeAndFetchSchema(TestScenario<K, V> scenario) {
-        scenario.runTest();
-    }
+  private static Stream<Arguments> testScenarios() {
+    return Stream.of(
+        Arguments.of(new TestScenarioStringAvro(
+            kafka.getKafkaConnectString(),
+            schemaRegistry.schemaRegistryUrl(),
+            schemaRegistry.schemaRegistryTestUtils().schemaRegistryClient())),
+        Arguments.of(new TestScenarioStringJson(
+            kafka.getKafkaConnectString(),
+            schemaRegistry.schemaRegistryUrl(),
+            schemaRegistry.schemaRegistryTestUtils().schemaRegistryClient())),
+        Arguments.of(new TestScenarioStringProtobuf(
+            kafka.getKafkaConnectString(),
+            schemaRegistry.schemaRegistryUrl(),
+            schemaRegistry.schemaRegistryTestUtils().schemaRegistryClient()))
+    );
+  }
 
-    private static Stream<Arguments> testScenarios() {
-        return Stream.of(
-                Arguments.of(new TestScenarioStringAvro(
-                        kafka.getKafkaConnectString(),
-                        schemaRegistry.schemaRegistryUrl(),
-                        schemaRegistry.schemaRegistryTestUtils().schemaRegistryClient())),
-                Arguments.of(new TestScenarioStringJson(
-                        kafka.getKafkaConnectString(),
-                        schemaRegistry.schemaRegistryUrl(),
-                        schemaRegistry.schemaRegistryTestUtils().schemaRegistryClient())),
-                Arguments.of(new TestScenarioStringProtobuf(
-                        kafka.getKafkaConnectString(),
-                        schemaRegistry.schemaRegistryUrl(),
-                        schemaRegistry.schemaRegistryTestUtils().schemaRegistryClient()))
-        );
-    }
+  @SneakyThrows
+  @ParameterizedTest
+  @MethodSource("testScenarios")
+  <K, V> void shouldProduceConsumeAndFetchSchema(TestScenario<K, V> scenario) {
+    scenario.runTest();
+  }
 
 }

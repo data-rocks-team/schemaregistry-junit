@@ -19,6 +19,7 @@ allprojects {
 subprojects {
 
     apply plugin: 'java-library'
+    apply plugin: 'checkstyle'
 
     // Specific Junit configuration
     if (it.name == 'schemaregistry-junit-test-utils') {
@@ -55,5 +56,14 @@ subprojects {
         implementation "org.slf4j:slf4j-simple:$slf4jVersion"
 
         testImplementation "org.assertj:assertj-core:$assertjVersion"
+    }
+
+    System.setProperty( "org.checkstyle.google.suppressionfilter.config",
+            "$rootProject.projectDir/config/checkstyle/checkstyle-suppressions.xml")
+    checkstyle {
+        toolVersion '8.37'
+        config = rootProject.resources.text.fromFile('config/checkstyle/google_checks.xml')
+        ignoreFailures = false
+        maxWarnings = 0
     }
 }
