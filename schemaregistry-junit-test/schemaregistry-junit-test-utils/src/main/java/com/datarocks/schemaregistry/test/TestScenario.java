@@ -24,80 +24,92 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public interface TestScenario<K, V> {
 
-    String topic();
+  String topic();
 
-    Optional<Schema> keySchema();
+  Optional<Schema> keySchema();
 
-    Optional<Schema> valueSchema();
+  Optional<Schema> valueSchema();
 
-    Properties producerProperties();
+  Properties producerProperties();
 
-    Properties consumerProperties();
+  Properties consumerProperties();
 
-    Serializer<K> keySerializer();
+  Serializer<K> keySerializer();
 
-    Serializer<V> valueSerializer();
+  Serializer<V> valueSerializer();
 
-    Deserializer<K> keyDeserializer();
+  Deserializer<K> keyDeserializer();
 
-    Deserializer<V> valueDeserializer();
+  Deserializer<V> valueDeserializer();
 
-    ProducerRecord<K, V> randomRecord();
+  ProducerRecord<K, V> randomRecord();
 
-    Producer<K, V> producer();
+  Producer<K, V> producer();
 
-    Consumer<K, V> consumer();
+  Consumer<K, V> consumer();
 
-    SchemaRegistryClient schemaRegistryClient();
+  SchemaRegistryClient schemaRegistryClient();
 
-    @SneakyThrows
-    default void runTest() {
-        ProducerRecord<K, V> record = randomRecord();
-        Set<TopicPartition> topicPartition = Collections.singleton(new TopicPartition(record.topic(), record.partition()));
+  /**
+   * Run the {@link TestScenario} which consists of four steps
+   * <ul>
+   *   <li>produce some records using the define serializers
+   *   <li>consume some records using the define deserializers
+   *   <li>check that the schema for the key, if any, are correctly stored in the SchemaRegistry
+   *   <li>check that the schema for the value, if any, are correctly stored in the SchemaRegistry
+   * </ul>
+   * If any of the described steps fails an error will be thrown.
+   */
+  @SneakyThrows
+  default void runTest() {
+    ProducerRecord<K, V> record = randomRecord();
+    Set<TopicPartition> topicPartition = Collections.singleton(new TopicPartition(record.topic(),
+        record.partition()));
 
-        // Verify produce can produce using schema-registry
-        Producer<K, V> producer = producer();
-        producer.send(record).get();
+    // Verify produce can produce using schema-registry
+    Producer<K, V> producer = producer();
+    producer.send(record).get();
 
-        // Verify consume can consume using schema-registry
-        Consumer<K, V> consumer = consumer();
+    // Verify consume can consume using schema-registry
+    Consumer<K, V> consumer = consumer();
 
-        consumer.assign(topicPartition);
-        consumer.seekToBeginning(topicPartition);
+    consumer.assign(topicPartition);
+    consumer.seekToBeginning(topicPartition);
 
-        List<ConsumerRecord<K, V>> records = new LinkedList<>();
+    List<ConsumerRecord<K, V>> records = new LinkedList<>();
 
-        do {
-            consumer.poll(Duration.ofSeconds(2)).forEach(records::add);
-        } while (records.isEmpty());
+    do {
+      consumer.poll(Duration.ofSeconds(2)).forEach(records::add);
+    } while (records.isEmpty());
 
-        assertThat(records).hasSize(1);
-        assertThat(records.get(0).key()).isEqualTo(record.key());
+    assertThat(records).hasSize(1);
+    assertThat(records.get(0).key()).isEqualTo(record.key());
 
-        // For Protobuf the deserializer returns DynamicMessage and not the actual Message
-        if (records.get(0).value() instanceof DynamicMessage) {
-            assertThat(Myrecord.MyRecord.parseFrom(((DynamicMessage) records.get(0).value()).toByteArray()))
-                    .isEqualTo(record.value());
-        } else {
-            assertThat(records.get(0).value()).isEqualTo(record.value());
-        }
-
-        // If present, verify key schema can be retrieved from schema-registry
-        keySchema().ifPresent(keySchema -> {
-            Schema schema = schemaRegistryClient()
-                    .getByVersion(topic() + "-key", 1, false);
-
-            assertThat(schema.getSchemaType()).isEqualTo(keySchema.getSchemaType());
-            assertThat(schema.getSchema()).isEqualTo(keySchema.getSchema());
-        });
-
-        // If present, verify value schema can be retrieved from schema-registry
-        valueSchema().ifPresent(valueSchema -> {
-            Schema schema = schemaRegistryClient()
-                    .getByVersion(topic() + "-value", 1, false);
-
-            assertThat(schema.getSchemaType()).isEqualTo(valueSchema.getSchemaType());
-            assertThat(schema.getSchema()).isEqualTo(valueSchema.getSchema());
-        });
+    // For Protobuf the deserializer returns DynamicMessage and not the actual Message
+    if (records.get(0).value() instanceof DynamicMessage) {
+      assertThat(Myrecord.MyRecord
+          .parseFrom(((DynamicMessage) records.get(0).value()).toByteArray()))
+          .isEqualTo(record.value());
+    } else {
+      assertThat(records.get(0).value()).isEqualTo(record.value());
     }
+
+    // If present, verify key schema can be retrieved from schema-registry
+    keySchema().ifPresent(keySchema -> {
+      Schema schema = schemaRegistryClient()
+          .getByVersion(topic() + "-key", 1, false);
+
+      assertThat(schema.getSchemaType()).isEqualTo(keySchema.getSchemaType());
+      assertThat(schema.getSchema()).isEqualTo(keySchema.getSchema());
+    });
+
+    // If present, verify value schema can be retrieved from schema-registry
+    valueSchema().ifPresent(valueSchema -> {
+      Schema schema = schemaRegistryClient()
+          .getByVersion(topic() + "-value", 1, false);
+
+      assertThat(schema.getSchemaType()).isEqualTo(valueSchema.getSchemaType());
+      assertThat(schema.getSchema()).isEqualTo(valueSchema.getSchema());
+    });
+  }
 }
