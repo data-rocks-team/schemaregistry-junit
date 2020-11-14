@@ -20,6 +20,7 @@ subprojects {
 
     apply plugin: 'java-library'
     apply plugin: 'checkstyle'
+    apply plugin: 'pmd'
 
     // Specific Junit configuration
     if (it.name == 'schemaregistry-junit-test-utils') {
@@ -65,5 +66,11 @@ subprojects {
         config = rootProject.resources.text.fromFile('config/checkstyle/google_checks.xml')
         ignoreFailures = false
         maxWarnings = 0
+    }
+
+    pmd {
+        toolVersion = "6.29.0"
+        ignoreFailures = false
+        rulePriority = 2
     }
 }
