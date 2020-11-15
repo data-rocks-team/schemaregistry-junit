@@ -1,9 +1,12 @@
 # schemaregistry-junit
 
 ![GitHub](https://img.shields.io/github/license/data-rocks-team/schemaregistry-junit)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/855176659fd24ec4ba34badf0bd46079)](https://app.codacy.com/gh/data-rocks-team/schemaregistry-junit?utm_source=github.com&utm_medium=referral&utm_content=data-rocks-team/schemaregistry-junit&utm_campaign=Badge_Grade_Settings)
 [![Actions Status](https://github.com/data-rocks-team/schemaregistry-junit/workflows/build/badge.svg)](https://github.com/data-rocks-team/schemaregistry-junit/actions)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/855176659fd24ec4ba34badf0bd46079)](https://app.codacy.com/gh/data-rocks-team/schemaregistry-junit?utm_source=github.com&utm_medium=referral&utm_content=data-rocks-team/schemaregistry-junit&utm_campaign=Badge_Grade_Settings)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fdata-rocks-team%2Fschemaregistry-junit.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fdata-rocks-team%2Fschemaregistry-junit?ref=badge_shield)
+[![Known Vulnerabilities](https://snyk.io/test/github/data-rocks-team/schemaregistry-junit/badge.svg?targetFile=schemaregistry-junit-core/build.gradle)](https://snyk.io/test/github/data-rocks-team/schemaregistry-junit?targetFile=schemaregistry-junit-core/build.gradle)
+[![Known Vulnerabilities](https://snyk.io/test/github/data-rocks-team/schemaregistry-junit/badge.svg?targetFile=schemaregistry-junit4/build.gradle)](https://snyk.io/test/github/data-rocks-team/schemaregistry-junit?targetFile=schemaregistry-junit4/build.gradle)
+[![Known Vulnerabilities](https://snyk.io/test/github/data-rocks-team/schemaregistry-junit/badge.svg?targetFile=schemaregistry-junit5/build.gradle)](https://snyk.io/test/github/data-rocks-team/schemaregistry-junit?targetFile=schemaregistry-junit5/build.gradle)
 
 Wrapping [Confluent Schema Registry](https://docs.confluent.io/current/schema-registry/), **schemaregistry-junit** 
 allows developers to create and run integration tests using [JUnit](https://junit.org/) against a "real" 
