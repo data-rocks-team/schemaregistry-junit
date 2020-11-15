@@ -2,6 +2,7 @@
 
 ![GitHub](https://img.shields.io/github/license/data-rocks-team/schemaregistry-junit)
 [![Actions Status](https://github.com/data-rocks-team/schemaregistry-junit/workflows/build/badge.svg)](https://github.com/data-rocks-team/schemaregistry-junit/actions)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fdata-rocks-team%2Fschemaregistry-junit.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fdata-rocks-team%2Fschemaregistry-junit?ref=badge_shield)
 
 Wrapping [Confluent Schema Registry](https://docs.confluent.io/current/schema-registry/), **schemaregistry-junit** 
 allows developers to create and run integration tests using [JUnit](https://junit.org/) against a "real" 
@@ -31,3 +32,6 @@ Any questions or suggestions? Get in touch!
 MIT [view license](/LICENSE)
 
 
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fdata-rocks-team%2Fschemaregistry-junit.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fdata-rocks-team%2Fschemaregistry-junit?ref=badge_large)
