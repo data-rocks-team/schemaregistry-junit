@@ -1,6 +1,7 @@
 # schemaregistry-junit
 
 ![GitHub](https://img.shields.io/github/license/data-rocks-team/schemaregistry-junit)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/855176659fd24ec4ba34badf0bd46079)](https://app.codacy.com/gh/data-rocks-team/schemaregistry-junit?utm_source=github.com&utm_medium=referral&utm_content=data-rocks-team/schemaregistry-junit&utm_campaign=Badge_Grade_Settings)
 [![Actions Status](https://github.com/data-rocks-team/schemaregistry-junit/workflows/build/badge.svg)](https://github.com/data-rocks-team/schemaregistry-junit/actions)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fdata-rocks-team%2Fschemaregistry-junit.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fdata-rocks-team%2Fschemaregistry-junit?ref=badge_shield)
 
