@@ -1,5 +1,15 @@
 plugins {
     id 'java-library'
+    id "org.sonarqube" version "3.0"
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "data-rocks-team_schemaregistry-junit"
+        property "sonar.organization", "data-rocks-team"
+        property "sonar.host.url", "https://sonarcloud.io"
+        property "sonar.scanner.force-deprecated-java-version", "true"
+    }
 }
 
 allprojects {
@@ -87,7 +97,7 @@ subprojects {
     jacocoTestReport {
         dependsOn test // tests are required to run before generating the report
         reports {
-            xml.enabled false
+            xml.enabled true
             csv.enabled false
             html.destination file("${buildDir}/jacocoHtml")
         }
