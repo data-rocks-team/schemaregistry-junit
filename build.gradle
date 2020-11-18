@@ -9,6 +9,7 @@ sonarqube {
         property "sonar.organization", "data-rocks-team"
         property "sonar.host.url", "https://sonarcloud.io"
         property "sonar.scanner.force-deprecated-java-version", "true"
+        property "sonar.coverage.exclusions", "schemaregistry-junit-test.*"
     }
 }
 
