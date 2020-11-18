@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 
-public class SchemaRegistryTestResourceTest {
+class SchemaRegistryTestResourceTest {
 
   @RegisterExtension
   public static final SharedKafkaTestResource kafka = new SharedKafkaTestResource()

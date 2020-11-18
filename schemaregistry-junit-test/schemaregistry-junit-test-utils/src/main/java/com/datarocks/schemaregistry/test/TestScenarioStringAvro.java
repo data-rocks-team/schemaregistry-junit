@@ -6,34 +6,20 @@ import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import org.apache.avro.generic.GenericData;
 import org.apache.avro.generic.GenericRecord;
-import org.apache.kafka.clients.consumer.Consumer;
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.Producer;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serializer;
-import org.apache.kafka.common.serialization.StringDeserializer;
-import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Collections;
 import java.util.Optional;
-import java.util.Properties;
 import java.util.UUID;
 
-public class TestScenarioStringAvro implements TestScenario<String, Object> {
+public class TestScenarioStringAvro extends AbstractTestScenarioStringObject<Object> {
 
   private static final String TOPIC = "test-scenario-string-avro";
 
   private static final String FIELD = "f1";
   private static final String SCHEMA = "{\"type\":\"record\"," + "\"name\":\"myrecord\","
       + "\"fields\":[{\"name\":\"" + FIELD + "\",\"type\":\"string\"}]}";
-
-  private Properties producerProperties;
-  private Properties consumerProperties;
-  private SchemaRegistryClient schemaRegistryClient;
 
   /**
    * Define {@link TestScenario} for records with String key and Avro value.
@@ -47,32 +33,8 @@ public class TestScenarioStringAvro implements TestScenario<String, Object> {
   public TestScenarioStringAvro(String kafkaBootstrapServer,
                                 String schemaRegistryUrl,
                                 SchemaRegistryClient schemaRegistryClient) {
-    this.schemaRegistryClient = schemaRegistryClient;
-
-    producerProperties = new Properties();
-    producerProperties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaBootstrapServer);
-    producerProperties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-    producerProperties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class);
-    producerProperties.put("schema.registry.url", schemaRegistryUrl);
-
-    consumerProperties = new Properties();
-    consumerProperties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaBootstrapServer);
-    consumerProperties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-    consumerProperties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-        KafkaAvroDeserializer.class);
-    consumerProperties.put(ConsumerConfig.GROUP_ID_CONFIG,
-        TestScenarioStringAvro.class.getCanonicalName());
-    consumerProperties.put("schema.registry.url", schemaRegistryUrl);
-  }
-
-  @Override
-  public String topic() {
-    return TOPIC;
-  }
-
-  @Override
-  public Optional<Schema> keySchema() {
-    return Optional.empty();
+    super(TOPIC, KafkaAvroSerializer.class, KafkaAvroDeserializer.class, kafkaBootstrapServer,
+        schemaRegistryUrl, schemaRegistryClient);
   }
 
   @Override
@@ -82,45 +44,17 @@ public class TestScenarioStringAvro implements TestScenario<String, Object> {
   }
 
   @Override
-  public Properties producerProperties() {
-    return producerProperties;
-  }
-
-  @Override
-  public Properties consumerProperties() {
-    return consumerProperties;
-  }
-
-  @Override
-  public Serializer<String> keySerializer() {
-    return new StringSerializer();
-  }
-
-  @Override
   public Serializer<Object> valueSerializer() {
-    return new KafkaAvroSerializer(schemaRegistryClient);
-  }
-
-  @Override
-  public Deserializer<String> keyDeserializer() {
-    return new StringDeserializer();
+    return new KafkaAvroSerializer(schemaRegistryClient());
   }
 
   @Override
   public Deserializer<Object> valueDeserializer() {
-    return new KafkaAvroDeserializer(schemaRegistryClient);
+    return new KafkaAvroDeserializer(schemaRegistryClient());
   }
 
   @Override
-  public ProducerRecord<String, Object> randomRecord() {
-    return new ProducerRecord<>(TOPIC, 0, randomKey(), randomAvroRecord());
-  }
-
-  private String randomKey() {
-    return UUID.randomUUID().toString();
-  }
-
-  private GenericRecord randomAvroRecord() {
+  protected Object randomValue() {
     org.apache.avro.Schema.Parser parser = new org.apache.avro.Schema.Parser();
     org.apache.avro.Schema schema = parser.parse(SCHEMA);
 
@@ -128,21 +62,6 @@ public class TestScenarioStringAvro implements TestScenario<String, Object> {
     avroRecord.put(FIELD, UUID.randomUUID().toString());
 
     return avroRecord;
-  }
-
-  @Override
-  public Producer<String, Object> producer() {
-    return new KafkaProducer<>(producerProperties);
-  }
-
-  @Override
-  public Consumer<String, Object> consumer() {
-    return new KafkaConsumer<>(consumerProperties);
-  }
-
-  @Override
-  public SchemaRegistryClient schemaRegistryClient() {
-    return schemaRegistryClient;
   }
 
 }

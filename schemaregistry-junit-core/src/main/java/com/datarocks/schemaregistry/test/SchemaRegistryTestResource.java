@@ -155,13 +155,13 @@ public class SchemaRegistryTestResource<T extends SchemaRegistryTestResource> {
     return new SchemaRegistryTestUtils(schemaRegistryProperties);
   }
 
-  private void validateServerDoesNotExist(final String errorMessage) throws IllegalStateException {
+  private void validateServerDoesNotExist(final String errorMessage) {
     if (server == null) {
       throw new IllegalStateException(errorMessage);
     }
   }
 
-  private void validateServerExist(final String errorMessage) throws IllegalStateException {
+  private void validateServerExist(final String errorMessage) {
     if (server != null) {
       throw new IllegalStateException(errorMessage);
     }
