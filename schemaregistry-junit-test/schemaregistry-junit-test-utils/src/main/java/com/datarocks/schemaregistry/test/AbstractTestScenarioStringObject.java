@@ -39,7 +39,7 @@ public abstract class AbstractTestScenarioStringObject<V> implements TestScenari
    *                                                         SchemaRegistry instance available at
    *                                                         {@code schemaRegistryUrl}
    */
-  public AbstractTestScenarioStringObject(String topic,
+  protected AbstractTestScenarioStringObject(String topic,
                                           Class<? extends Serializer> valueSerializer,
                                           Class<? extends Deserializer> valueDeserializer,
                                           String kafkaBootstrapServer,
@@ -63,7 +63,7 @@ public abstract class AbstractTestScenarioStringObject<V> implements TestScenari
    * @param consumerPropertyOverride {@link Map} can be used to extend or override consumer
    *                                            properties
    */
-  public AbstractTestScenarioStringObject(String topic,
+  protected AbstractTestScenarioStringObject(String topic,
                                           Class<? extends Serializer> valueSerializer,
                                           Class<? extends Deserializer> valueDeserializer,
                                           String kafkaBootstrapServer,
@@ -87,7 +87,7 @@ public abstract class AbstractTestScenarioStringObject<V> implements TestScenari
     consumerProperties.put(ConsumerConfig.GROUP_ID_CONFIG, topic);
     consumerProperties.put("schema.registry.url", schemaRegistryUrl);
 
-    consumerPropertyOverride.forEach((key, value) -> consumerProperties.put(key, value));
+    consumerPropertyOverride.forEach(consumerProperties::put);
   }
 
   @Override
@@ -119,15 +119,9 @@ public abstract class AbstractTestScenarioStringObject<V> implements TestScenari
   }
 
   @Override
-  public abstract Serializer<V> valueSerializer();
-
-  @Override
   public Deserializer<String> keyDeserializer() {
     return new StringDeserializer();
   }
-
-  @Override
-  public abstract Deserializer<V> valueDeserializer();
 
   @Override
   public ProducerRecord<String, V> randomRecord() {
