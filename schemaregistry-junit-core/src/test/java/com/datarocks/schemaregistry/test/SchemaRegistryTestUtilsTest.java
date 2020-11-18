@@ -14,7 +14,7 @@ import java.util.Properties;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 @Testcontainers
-public class SchemaRegistryTestUtilsTest {
+class SchemaRegistryTestUtilsTest {
 
   @Container
   public static final GenericContainer<?> env = new GenericContainer<>(

@@ -9,7 +9,7 @@ import java.util.Properties;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
-public class SchemaRegistryPropertiesTest {
+class SchemaRegistryPropertiesTest {
 
   @Test
   void shouldReturnSingleListenerString() {
