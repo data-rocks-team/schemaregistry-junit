@@ -101,9 +101,6 @@ public abstract class AbstractTestScenarioStringObject<V> implements TestScenari
   }
 
   @Override
-  public abstract Optional<Schema> valueSchema();
-
-  @Override
   public Properties producerProperties() {
     return producerProperties;
   }
