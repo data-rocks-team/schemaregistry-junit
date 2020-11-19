@@ -38,3 +38,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ./gradlew sonarqube --info
+      - name: Analyze with CodeClimate
+        uses: paambaati/codeclimate-action@v2.7.4
+        env:
+          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
+        with:
+          coverageLocations: |
+            ${{github.workspace}}/schemaregistry-junit-core/build/jacoco/test/jacocoTestReport.xml:jacoco
+            ${{github.workspace}}/schemaregistry-junit5/build/jacoco/test/jacocoTestReport.xml:jacoco
+            ${{github.workspace}}/schemaregistry-junit4/build/jacoco/test/jacocoTestReport.xml:jacoco
