@@ -28,8 +28,7 @@ jobs:
         id: tag
         uses: dawidd6/action-get-tag@v1
       - name: Publish with Gradle
-#        run: ./gradlew publish -PreleaseVersion=$RELEASE_VERSION
-        run: echo $RELEASE_VERSION
+        run: ./gradlew publish -PreleaseVersion=$RELEASE_VERSION
         env:
           RELEASE_VERSION: ${{ steps.tag.outputs.tag }}
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
