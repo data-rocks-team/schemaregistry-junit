@@ -1,3 +1,6 @@
+// Publishing
+apply from: "$rootProject.projectDir/maven-publish.gradle"
+
 dependencies {
     api project(':schemaregistry-junit-core')
 

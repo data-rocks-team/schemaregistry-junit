@@ -1,0 +1,50 @@
+apply plugin: 'maven-publish'
+
+group = 'io.github.data-rocks-team'
+version = project.hasProperty('releaseVersion') ? project.property('releaseVersion') : 'local'
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = "$project.name"
+            from components.java
+            pom {
+                name = 'schemaregistry-junit'
+                description = ('schemaregistry-junit wraps Confluent Schema Registry, '
+                        + 'allowing you to more easily create and run integration tests using '
+                        + 'JUnit against a "real" SchemaRegistry server running within the '
+                        + 'context of your tests. No need to stand up an external deployment!')
+                url = 'https://github.com/data-rocks-team/schemaregistry-junit'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://github.com/data-rocks-team/schemaregistry-junit/blob/main/LICENSE'
+                    }
+                }
+                developers {
+                    developer {
+                        name = 'Francesco Nobilia'
+                        url = 'https://nobilia.dev/'
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "OSSRH"
+            def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+            def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            credentials {
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
+            }
+        }
+    }
+}
