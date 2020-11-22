@@ -1,7 +1,10 @@
 apply plugin: 'maven-publish'
 
 group = 'io.github.data-rocks-team'
-version = project.hasProperty('releaseVersion') ? project.property('releaseVersion') : 'local'
+version = (project.hasProperty('releaseVersion')
+        ? (project.property('releaseVersion').startsWith('v')
+            ? project.property('releaseVersion').substring(1) : project.property('releaseVersion'))
+        : 'local') as String
 
 java {
     withJavadocJar()
