@@ -24,10 +24,12 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-release-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
-      - uses: olegtarasov/get-tag@v2
-          id: tagName
+      - name: Get tag
+        id: tag
+        uses: dawidd6/action-get-tag@v1
       - name: Publish with Gradle
-        run: ./gradlew publish -PreleaseVersion=$GIT_TAG_NAME
+        run: ./gradlew publish -PreleaseVersion=$RELEASE_VERSION
         env:
+          RELEASE_VERSION: ${{ steps.tag.outputs.tag }}
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
