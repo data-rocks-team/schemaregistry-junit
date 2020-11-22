@@ -29,33 +29,21 @@ allprojects {
 
 subprojects {
 
+    // Define a context variable that can be reused inside the others gradle files applied via
+    // `apply from: <FILE>`
+    ext.currentProject=it
+
+    // Every module is a Java library
     apply plugin: 'java-library'
-    apply plugin: 'checkstyle'
-    apply plugin: 'pmd'
+
+    // Checkstyle
+    apply from: "$rootProject.projectDir/checkstyle.gradle"
+
+    // PMD
+    apply from: "$rootProject.projectDir/pmd.gradle"
 
     // Specific Junit configuration
-    if (it.name == 'schemaregistry-junit-test-utils') {
-        // schemaregistry-junit-test-utils is shared between Junit4 and Junit5 therefore it should not depend on any
-        // of these two libraries
-    } else if (it.name.contains('junit4')) {
-        // Use Junit4 while testing modules targeting Junit4
-        dependencies {
-            testImplementation "junit:junit:$junit4Version"
-        }
-    } else {
-        // By default tests use Junit5
-        dependencies {
-            testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
-
-            testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
-            testImplementation "org.junit.jupiter:junit-jupiter-params:$junitJupiterVersion"
-        }
-
-        test {
-            // Use junit platform for unit tests
-            useJUnitPlatform()
-        }
-    }
+    apply from: "$rootProject.projectDir/junit.gradle"
 
     dependencies {
         // Lombok configuration
@@ -70,79 +58,9 @@ subprojects {
         testImplementation "org.assertj:assertj-core:$assertjVersion"
     }
 
-    // Checkstyle
-    System.setProperty( "org.checkstyle.google.suppressionfilter.config",
-            "$rootProject.projectDir/config/checkstyle/checkstyle-suppressions.xml")
-    checkstyle {
-        toolVersion '8.37'
-        config = rootProject.resources.text.fromFile('config/checkstyle/google_checks.xml')
-        ignoreFailures = false
-        maxWarnings = 0
-    }
+    // Jacoco
+    apply from: "$rootProject.projectDir/jacoco.gradle"
 
-    // PMD
-    pmd {
-        toolVersion = "6.29.0"
-        ignoreFailures = false
-        rulePriority = 2
-    }
-
-    // Apply Jacoco only to the main modules
-    if (!['baseline',
-          'schemaregistry-junit-test',
-          'schemaregistry-junit-test-utils',
-          'schemaregistry-junit-regression-test']
-            .contains(it.name)
-        && !(it.name ==~ /.[0-9\\.]+/)) {
-        // Jacoco
-        apply plugin: 'jacoco'
-
-        jacoco {
-            toolVersion = "0.8.5"
-            reportsDir = file("$buildDir/jacoco")
-        }
-
-        test {
-            // Configuration for disabling main tests
-            onlyIf {
-                (!project.hasProperty("excludeMainTesting") || !project.property
-                        ('excludeMainTesting')) as Boolean
-            }
-
-            finalizedBy jacocoTestReport // report is always generated after tests run
-        }
-
-        jacocoTestReport {
-            dependsOn test // tests are required to run before generating the report
-            reports {
-                xml.enabled true
-                csv.enabled false
-                html.destination file("${buildDir}/jacocoHtml")
-            }
-        }
-
-        jacocoTestCoverageVerification {
-            violationRules {
-                rule {
-                    limit {
-                        minimum = 0.6
-                    }
-                }
-            }
-        }
-
-        // to run coverage verification during the build (and fail when appropriate)
-        check.dependsOn jacocoTestCoverageVerification
-    }
-
-    // Add a flag to exclude regression testing
-    if (it.name ==~ /.[0-9\\.]+/) {
-        test {
-            // Configuration for disabling regression tests
-            onlyIf {
-                (!project.hasProperty("excludeRegressionTesting") || !project.property
-                        ('excludeRegressionTesting')) as Boolean
-            }
-        }
-    }
+    // Add flag to run specific group of tests
+    apply from: "$rootProject.projectDir/on-off-test.gradle"
 }

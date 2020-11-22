@@ -1,0 +1,9 @@
+// PMD configuration
+apply plugin: 'pmd'
+
+// PMD
+pmd {
+    toolVersion = "6.29.0"
+    ignoreFailures = false
+    rulePriority = 2
+}

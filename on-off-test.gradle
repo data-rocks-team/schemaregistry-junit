@@ -1,0 +1,26 @@
+// Add a flag to exclude main testing
+if (!['baseline',
+      'schemaregistry-junit-test',
+      'schemaregistry-junit-test-utils',
+      'schemaregistry-junit-regression-test']
+        .contains(ext.currentProject.name)
+        && !(ext.currentProject.name ==~ /.[0-9\\.]+/)) {
+    test {
+        // Configuration for disabling main tests
+        onlyIf {
+            (!project.hasProperty("excludeMainTesting") || !project.property
+                    ('excludeMainTesting')) as Boolean
+        }
+    }
+}
+
+// Add a flag to exclude regression testing
+if (ext.currentProject.name ==~ /.[0-9\\.]+/) {
+    test {
+        // Configuration for disabling regression tests
+        onlyIf {
+            (!project.hasProperty("excludeRegressionTesting") || !project.property
+                    ('excludeRegressionTesting')) as Boolean
+        }
+    }
+}

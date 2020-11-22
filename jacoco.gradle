@@ -1,0 +1,42 @@
+// Apply Jacoco only to the main modules
+if (!['baseline',
+      'schemaregistry-junit-test',
+      'schemaregistry-junit-test-utils',
+      'schemaregistry-junit-regression-test']
+        .contains(ext.currentProject.name)
+        && !(ext.currentProject.name ==~ /.[0-9\\.]+/)) {
+
+    // Jacoco configuration
+    apply plugin: 'jacoco'
+
+    jacoco {
+        toolVersion = "0.8.5"
+        reportsDir = file("$buildDir/jacoco")
+    }
+
+    test {
+        finalizedBy jacocoTestReport // report is always generated after tests run
+    }
+
+    jacocoTestReport {
+        dependsOn test // tests are required to run before generating the report
+        reports {
+            xml.enabled true
+            csv.enabled false
+            html.destination file("${buildDir}/jacocoHtml")
+        }
+    }
+
+    jacocoTestCoverageVerification {
+        violationRules {
+            rule {
+                limit {
+                    minimum = 0.6
+                }
+            }
+        }
+    }
+
+    // to run coverage verification during the build (and fail when appropriate)
+    check.dependsOn jacocoTestCoverageVerification
+}
