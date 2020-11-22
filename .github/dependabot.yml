@@ -6,3 +6,9 @@ updates:
       interval: "daily"
     reviewers:
       - "fnobilia"
+  - package-ecosystem: "gradle"
+    directory: "/examples/junit-5"
+    schedule:
+      interval: "daily"
+    reviewers:
+      - "fnobilia"
