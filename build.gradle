@@ -103,8 +103,10 @@ subprojects {
         }
 
         test {
+            // Configuration for disabling main tests
             onlyIf {
-                !project.hasProperty("excludeMainTesting") || !project.property('excludeMainTesting')
+                (!project.hasProperty("excludeMainTesting") || !project.property
+                        ('excludeMainTesting')) as Boolean
             }
 
             finalizedBy jacocoTestReport // report is always generated after tests run
@@ -136,8 +138,10 @@ subprojects {
     // Add a flag to exclude regression testing
     if (it.name ==~ /.[0-9\\.]+/) {
         test {
+            // Configuration for disabling regression tests
             onlyIf {
-                !project.hasProperty("excludeRegressionTesting") || !project.property('excludeRegressionTesting')
+                (!project.hasProperty("excludeRegressionTesting") || !project.property
+                        ('excludeRegressionTesting')) as Boolean
             }
         }
     }
