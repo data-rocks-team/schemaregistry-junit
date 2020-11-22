@@ -1,3 +1,6 @@
+// Publishing
+apply from: "$rootProject.projectDir/maven-publish.gradle"
+
 dependencies {
     // SchemaRegistry is not leak into users classpath to allow the test DSL to support multiple
     // versions at the same time
