@@ -16,7 +16,7 @@ import java.util.concurrent.ExecutionException;
 public class Library {
 
     private static final String FIELD = "f1";
-    public static final String SCHEMA = "{\"type\":\"record\"," + "\"name\":\"myrecord\","
+    private static final String SCHEMA = "{\"type\":\"record\"," + "\"name\":\"myrecord\","
         + "\"fields\":[{\"name\":\"" + FIELD + "\",\"type\":\"string\"}]}";
 
     private final String topic;

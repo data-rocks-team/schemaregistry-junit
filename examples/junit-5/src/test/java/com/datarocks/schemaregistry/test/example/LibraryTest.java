@@ -38,8 +38,10 @@ class LibraryTest {
     List<ConsumerRecord<byte[], byte[]>> records = kafka.getKafkaTestUtils()
         .consumeAllRecordsFromTopic(TOPIC);
 
+    // Check that the record is there
     assertThat(records).hasSize(1);
 
+    // Check that the schema is there
     assertThat(schemaRegistry.schemaRegistryTestUtils().schemaRegistryClient().getAllSubjects())
         .contains(TOPIC + "-value");
   }
