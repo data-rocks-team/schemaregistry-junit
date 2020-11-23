@@ -24,11 +24,15 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-release-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
+      - name: Install gpg secret key
+        run: |
+          cat <(echo -e "${{ secrets.OSSRH_GPG_SECRET_KEY }}") | gpg --batch --import
+          gpg --list-secret-keys --keyid-format LONG
       - name: Get tag
         id: tag
         uses: dawidd6/action-get-tag@v1
       - name: Publish with Gradle
-        run: ./gradlew publish -PreleaseVersion=$RELEASE_VERSION
+        run: ./gradlew publish -PreleaseVersion=$RELEASE_VERSION -Psigning.gnupg.executable='gpg' -Psigning.gnupg.keyName='${{secrets.OSSRH_GPG_SECRET_KEY_ID }}' -Psigning.gnupg.passphrase='${{secrets.OSSRH_GPG_SECRET_KEY_PASSPHRASE }}'
         env:
           RELEASE_VERSION: ${{ steps.tag.outputs.tag }}
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
