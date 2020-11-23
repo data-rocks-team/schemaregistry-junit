@@ -1,4 +1,5 @@
 apply plugin: 'maven-publish'
+apply plugin: 'signing'
 
 group = 'io.github.data-rocks-team'
 version = (project.hasProperty('releaseVersion')
@@ -29,6 +30,11 @@ publishing {
                         url = 'https://github.com/data-rocks-team/schemaregistry-junit/blob/main/LICENSE'
                     }
                 }
+                scm {
+                    connection = 'scm:git:git://github.com/data-rocks-team/schemaregistry-junit.git'
+                    developerConnection = 'scm:git:ssh://github.com/data-rocks-team/schemaregistry-junit.git'
+                    url = 'https://github.com/data-rocks-team/schemaregistry-junit'
+                }
                 developers {
                     developer {
                         name = 'Francesco Nobilia'
@@ -50,4 +56,8 @@ publishing {
             }
         }
     }
+}
+
+signing {
+    sign publishing.publications.mavenJava
 }
