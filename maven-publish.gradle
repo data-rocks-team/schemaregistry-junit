@@ -29,6 +29,11 @@ publishing {
                         url = 'https://github.com/data-rocks-team/schemaregistry-junit/blob/main/LICENSE'
                     }
                 }
+                scm {
+                    connection = 'scm:git:git://github.com/data-rocks-team/schemaregistry-junit.git'
+                    developerConnection = 'scm:git:ssh://github.com/data-rocks-team/schemaregistry-junit.git'
+                    url = 'https://github.com/data-rocks-team/schemaregistry-junit'
+                }
                 developers {
                     developer {
                         name = 'Francesco Nobilia'
@@ -49,5 +54,15 @@ publishing {
                 password = System.getenv("MAVEN_PASSWORD")
             }
         }
+    }
+}
+
+// Apply signature only if needed
+if (project.hasProperty('signing.gnupg.passphrase')) {
+    apply plugin: 'signing'
+
+    signing {
+        useGpgCmd()
+        sign publishing.publications.mavenJava
     }
 }
