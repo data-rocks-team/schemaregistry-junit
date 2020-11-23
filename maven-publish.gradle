@@ -1,5 +1,4 @@
 apply plugin: 'maven-publish'
-apply plugin: 'signing'
 
 group = 'io.github.data-rocks-team'
 version = (project.hasProperty('releaseVersion')
@@ -58,6 +57,12 @@ publishing {
     }
 }
 
-signing {
-    sign publishing.publications.mavenJava
+// Apply signature only if needed
+if (project.hasProperty('signing.gnupg.passphrase')) {
+    apply plugin: 'signing'
+
+    signing {
+        useGpgCmd()
+        sign publishing.publications.mavenJava
+    }
 }
