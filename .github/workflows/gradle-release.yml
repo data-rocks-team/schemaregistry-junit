@@ -32,10 +32,7 @@ jobs:
         id: tag
         uses: dawidd6/action-get-tag@v1
       - name: Publish with Gradle
-        run: ./gradlew publish -PreleaseVersion=$RELEASE_VERSION \
-                -Psigning.gnupg.executable='gpg' \
-                -Psigning.gnupg.keyName='${{secrets.OSSRH_GPG_SECRET_KEY_ID }}' \
-                -Psigning.gnupg.passphrase='${{secrets.OSSRH_GPG_SECRET_KEY_PASSPHRASE }}'
+        run: ./gradlew publish -PreleaseVersion=$RELEASE_VERSION -Psigning.gnupg.executable='gpg' -Psigning.gnupg.keyName='${{secrets.OSSRH_GPG_SECRET_KEY_ID }}' -Psigning.gnupg.passphrase='${{secrets.OSSRH_GPG_SECRET_KEY_PASSPHRASE }}'
         env:
           RELEASE_VERSION: ${{ steps.tag.outputs.tag }}
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
