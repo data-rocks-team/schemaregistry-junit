@@ -25,7 +25,9 @@ This project was inspired by [kafka-junit](https://github.com/salesforce/kafka-j
 
 ## Installation
 The easiest way is to include it in your project(s) by ways of a Maven dependency. Binary, Sources 
-and Javadocs are all available from Maven Central.
+and Javadocs are all available from 
+[Maven Central](https://search.maven.org/search?q=g:io.github.data-rocks-team).
+
 For JUnit 5
 ```
 <dependency>
