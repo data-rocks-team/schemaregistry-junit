@@ -1,14 +1,16 @@
 # schemaregistry-junit
 
 ![GitHub](https://img.shields.io/github/license/data-rocks-team/schemaregistry-junit)
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.data-rocks-team/schemaregistry-junit5.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3Aio.github.data-rocks-team%20a%3Aschemaregistry-junit5)
 [![Actions Status](https://github.com/data-rocks-team/schemaregistry-junit/workflows/build/badge.svg)](https://github.com/data-rocks-team/schemaregistry-junit/actions)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fdata-rocks-team%2Fschemaregistry-junit.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fdata-rocks-team%2Fschemaregistry-junit?ref=badge_shield)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=data-rocks-team_schemaregistry-junit&metric=alert_status)](https://sonarcloud.io/dashboard?id=data-rocks-team_schemaregistry-junit)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=data-rocks-team_schemaregistry-junit&metric=coverage)](https://sonarcloud.io/dashboard?id=data-rocks-team_schemaregistry-junit)
-[![Known Vulnerabilities](https://snyk.io/test/github/data-rocks-team/schemaregistry-junit/badge.svg?targetFile=schemaregistry-junit-core/build.gradle)](https://snyk.io/test/github/data-rocks-team/schemaregistry-junit?targetFile=schemaregistry-junit-core/build.gradle)
-[![Known Vulnerabilities](https://snyk.io/test/github/data-rocks-team/schemaregistry-junit/badge.svg?targetFile=schemaregistry-junit4/build.gradle)](https://snyk.io/test/github/data-rocks-team/schemaregistry-junit?targetFile=schemaregistry-junit4/build.gradle)	
-[![Known Vulnerabilities](https://snyk.io/test/github/data-rocks-team/schemaregistry-junit/badge.svg?targetFile=schemaregistry-junit5/build.gradle)](https://snyk.io/test/github/data-rocks-team/schemaregistry-junit?targetFile=schemaregistry-junit5/build.gradle)
+
+| Library | Version | Documentation | Vulnerability |
+| ----------- | ----------- | ----------- | ----------- |
+| schemaregistry-junit5 | [![Maven Central](https://img.shields.io/maven-central/v/io.github.data-rocks-team/schemaregistry-junit5.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3Aio.github.data-rocks-team%20a%3Aschemaregistry-junit5) | [![Javadocs](http://www.javadoc.io/badge/io.github.data-rocks-team/schemaregistry-junit5.svg)](http://www.javadoc.io/doc/io.github.data-rocks-team/schemaregistry-junit5) | [![Known Vulnerabilities](https://snyk.io/test/github/data-rocks-team/schemaregistry-junit/badge.svg?targetFile=schemaregistry-junit5/build.gradle)](https://snyk.io/test/github/data-rocks-team/schemaregistry-junit?targetFile=schemaregistry-junit5/build.gradle)
+| schemaregistry-junit4 | [![Maven Central](https://img.shields.io/maven-central/v/io.github.data-rocks-team/schemaregistry-junit4.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3Aio.github.data-rocks-team%20a%3Aschemaregistry-junit4) | [![Javadocs](http://www.javadoc.io/badge/io.github.data-rocks-team/schemaregistry-junit4.svg)](http://www.javadoc.io/doc/io.github.data-rocks-team/schemaregistry-junit4) | [![Known Vulnerabilities](https://snyk.io/test/github/data-rocks-team/schemaregistry-junit/badge.svg?targetFile=schemaregistry-junit4/build.gradle)](https://snyk.io/test/github/data-rocks-team/schemaregistry-junit?targetFile=schemaregistry-junit4/build.gradle)
+| schemaregistry-junit-core | [![Maven Central](https://img.shields.io/maven-central/v/io.github.data-rocks-team/schemaregistry-junit-core.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3Aio.github.data-rocks-team%20a%3Aschemaregistry-junit-core) | [![Javadocs](http://www.javadoc.io/badge/io.github.data-rocks-team/schemaregistry-junit-core.svg)](http://www.javadoc.io/doc/io.github.data-rocks-team/schemaregistry-junit-core) | [![Known Vulnerabilities](https://snyk.io/test/github/data-rocks-team/schemaregistry-junit/badge.svg?targetFile=schemaregistry-junit-core/build.gradle)](https://snyk.io/test/github/data-rocks-team/schemaregistry-junit?targetFile=schemaregistry-junit-core/build.gradle) |
 
 Wrapping [Confluent Schema Registry](https://docs.confluent.io/current/schema-registry/), 
 **schemaregistry-junit** allows developers to create and run integration tests using 
@@ -62,8 +64,5 @@ Any questions or suggestions? Get in touch!
 
 ## License
 MIT [view license](/LICENSE)
-
-
-
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fdata-rocks-team%2Fschemaregistry-junit.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fdata-rocks-team%2Fschemaregistry-junit?ref=badge_large)
