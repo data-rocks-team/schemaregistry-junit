@@ -3,8 +3,8 @@ if (!['baseline',
       'schemaregistry-junit-test',
       'schemaregistry-junit-test-utils',
       'schemaregistry-junit-regression-test']
-        .contains(ext.currentProject.name)
-        && !(ext.currentProject.name ==~ /.[0-9\\.]+/)) {
+        .contains(project.name)
+        && !(project.name ==~ /.[0-9\\.]+/)) {
     test {
         // Configuration for disabling main tests
         onlyIf {
@@ -15,7 +15,7 @@ if (!['baseline',
 }
 
 // Add a flag to exclude regression testing
-if (ext.currentProject.name ==~ /.[0-9\\.]+/) {
+if (project.name ==~ /.[0-9\\.]+/) {
     test {
         // Configuration for disabling regression tests
         onlyIf {

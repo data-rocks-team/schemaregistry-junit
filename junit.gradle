@@ -1,8 +1,8 @@
 // Junit configuration based on domain
-if (ext.currentProject.name == 'schemaregistry-junit-test-utils') {
+if (project.name == 'schemaregistry-junit-test-utils') {
     // schemaregistry-junit-test-utils is shared between Junit4 and Junit5 therefore it should not depend on any
     // of these two libraries
-} else if (ext.currentProject.name.contains('junit4')) {
+} else if (project.name.contains('junit4')) {
     // Use Junit4 while testing modules targeting Junit4
     dependencies {
         testImplementation "junit:junit:$junit4Version"
