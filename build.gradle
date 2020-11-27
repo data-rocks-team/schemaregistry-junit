@@ -38,7 +38,7 @@ subprojects {
         junit4Version = '4.13.1'
         junitJupiterVersion = '5.7.0'
         lombokVersion = '1.18.16'
-        protobufVersion = '3.13.0'
+        protobufVersion = '3.14.0'
         slf4jVersion = '1.7.30'
         testcontainersVersion = '1.15.0'
     }
