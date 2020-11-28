@@ -13,14 +13,3 @@ if (!['baseline',
         }
     }
 }
-
-// Add a flag to exclude regression testing
-if (project.name ==~ /.[0-9\\.]+/) {
-    test {
-        // Configuration for disabling regression tests
-        onlyIf {
-            (!project.hasProperty("excludeRegressionTesting") || !project.property
-                    ('excludeRegressionTesting')) as Boolean
-        }
-    }
-}
