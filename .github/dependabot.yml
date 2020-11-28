@@ -10,5 +10,8 @@ updates:
     directory: "/examples/junit-5"
     schedule:
       interval: "daily"
+    ignored_updates:
+      - match:
+          dependency_name: "io.github.data-rocks-team:schemaregistry-junit5"
     reviewers:
       - "fnobilia"

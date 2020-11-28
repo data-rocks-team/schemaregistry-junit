@@ -1,15 +1,22 @@
 rootProject.name = 'schemaregistry-junit'
 
+// All main modules should be listed in this include
 include 'schemaregistry-junit-core',
         'schemaregistry-junit4',
         'schemaregistry-junit5',
-        'schemaregistry-junit-test:schemaregistry-junit-test-utils',
-        'schemaregistry-junit-test:schemaregistry-junit-regression-test:baseline',
-        'schemaregistry-junit-test:schemaregistry-junit-regression-test:4.0',
-        'schemaregistry-junit-test:schemaregistry-junit-regression-test:4.1',
-        'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.0',
-        'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.1',
-        'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.2',
-        'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.3',
-        'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.4',
-        'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.5'
+        'schemaregistry-junit-test:schemaregistry-junit-test-utils'
+
+// EXCLUDE_REGRESSION enable and disable modules for regression testing. It can be used at CI to
+// optimise resources and better parallelize the workflow
+if (System.env.EXCLUDE_REGRESSION != 'true') {
+    // All modules for regression testing should be listed in this include
+    include 'schemaregistry-junit-test:schemaregistry-junit-regression-test:baseline',
+            'schemaregistry-junit-test:schemaregistry-junit-regression-test:4.0',
+            'schemaregistry-junit-test:schemaregistry-junit-regression-test:4.1',
+            'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.0',
+            'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.1',
+            'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.2',
+            'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.3',
+            'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.4',
+            'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.5'
+}

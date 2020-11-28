@@ -1,12 +1,14 @@
 // Checkstyle configuration
-apply plugin: 'checkstyle'
+if (!project.hasProperty("disableCheckstyle")) {
+    apply plugin: 'checkstyle'
 
 // Checkstyle
-System.setProperty( "org.checkstyle.google.suppressionfilter.config",
-        "$rootProject.projectDir/config/checkstyle/checkstyle-suppressions.xml")
-checkstyle {
-    toolVersion '8.37'
-    config = rootProject.resources.text.fromFile('config/checkstyle/google_checks.xml')
-    ignoreFailures = false
-    maxWarnings = 0
+    System.setProperty("org.checkstyle.google.suppressionfilter.config",
+            "$rootProject.projectDir/config/checkstyle/checkstyle-suppressions.xml")
+    checkstyle {
+        toolVersion '8.37'
+        config = rootProject.resources.text.fromFile('config/checkstyle/google_checks.xml')
+        ignoreFailures = false
+        maxWarnings = 0
+    }
 }

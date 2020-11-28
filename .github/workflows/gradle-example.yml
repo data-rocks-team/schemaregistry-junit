@@ -24,6 +24,6 @@ jobs:
           key: ${{ runner.os }}-regression-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
       - name: Build with Gradle
-        run: ./gradlew publishToMavenLocal -x test
+        run: ./gradlew publishToMavenLocal -PdisableCheckstyle -PdisableJacoco -PdisablePmd -x test
       - name: Run Junit5 example
         run: cd ./examples/junit-5 && ./gradlew build

@@ -43,10 +43,6 @@ subprojects {
         testcontainersVersion = '1.15.0'
     }
 
-    // Define a context variable that can be reused inside the others gradle files applied via
-    // `apply from: <FILE>`
-    ext.currentProject=it
-
     // Every module is a Java library
     apply plugin: 'java-library'
 

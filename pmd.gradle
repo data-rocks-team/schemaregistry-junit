@@ -1,9 +1,10 @@
 // PMD configuration
-apply plugin: 'pmd'
+if (!project.hasProperty("disablePmd")) {
+    apply plugin: 'pmd'
 
-// PMD
-pmd {
-    toolVersion = "6.29.0"
-    ignoreFailures = false
-    rulePriority = 2
+    pmd {
+        toolVersion = "6.29.0"
+        ignoreFailures = false
+        rulePriority = 2
+    }
 }
