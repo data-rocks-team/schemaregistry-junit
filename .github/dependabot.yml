@@ -18,6 +18,6 @@ updates:
       update_schedule: "daily"
       ignored_updates:
         - match:
-            dependency_name: "io.github.data-rocks-team:schemaregistry-junit5"
+            dependency_name: "io.github.data-rocks-team:schemaregistry-junit4"
       reviewers:
         - "fnobilia"
