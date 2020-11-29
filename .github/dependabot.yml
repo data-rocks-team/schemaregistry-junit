@@ -2,16 +2,22 @@ version: 2
 updates:
   - package-ecosystem: "gradle"
     directory: "/"
-    schedule:
-      interval: "daily"
+    update_schedule: "daily"
     reviewers:
       - "fnobilia"
   - package-ecosystem: "gradle"
     directory: "/examples/junit-5"
-    schedule:
-      interval: "daily"
+    update_schedule: "daily"
     ignored_updates:
       - match:
           dependency_name: "io.github.data-rocks-team:schemaregistry-junit5"
     reviewers:
       - "fnobilia"
+  - package-ecosystem: "gradle"
+      directory: "/examples/junit-4"
+      update_schedule: "daily"
+      ignored_updates:
+        - match:
+            dependency_name: "io.github.data-rocks-team:schemaregistry-junit5"
+      reviewers:
+        - "fnobilia"
