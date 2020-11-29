@@ -72,6 +72,7 @@ Every build is automatically tested against the latest patch version of every mi
 
 ## Examples
 - [JUnit 5 example](/examples/junit-5)
+- [JUnit 4 example](/examples/junit-4)
 
 ## Contributing
 Found a bug? Think you've got an awesome feature you want to add? We welcome contributions!

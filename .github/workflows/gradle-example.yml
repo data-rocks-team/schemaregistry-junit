@@ -27,3 +27,5 @@ jobs:
         run: ./gradlew publishToMavenLocal -PdisableCheckstyle -PdisableJacoco -PdisablePmd -x test
       - name: Run Junit5 example
         run: cd ./examples/junit-5 && ./gradlew build
+      - name: Run Junit4 example
+        run: cd ./examples/junit-4 && ./gradlew build
