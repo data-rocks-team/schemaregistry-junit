@@ -22,7 +22,7 @@ jobs:
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-example-gradle-${{ hashFiles('**/examples/**/*.gradle') }}
-          restore-keys: ${{ runner.os }}-gradle
+          restore-keys: ${{ runner.os }}-example-gradle
       - name: Build with Gradle
         run: ./gradlew publishToMavenLocal -PdisableCheckstyle -PdisableJacoco -PdisablePmd -x test
       - name: Run Junit5 example
