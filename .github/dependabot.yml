@@ -10,17 +10,15 @@ updates:
     directory: "/examples/junit-5"
     schedule:
       interval: "weekly"
-    ignored_updates:
-      - match:
-          dependency_name: "io.github.data-rocks-team:schemaregistry-junit5"
+    ignore:
+      - dependency-name: "io.github.data-rocks-team:schemaregistry-junit5"
     reviewers:
       - "fnobilia"
   - package-ecosystem: "gradle"
     directory: "/examples/junit-4"
     schedule:
       interval: "weekly"
-    ignored_updates:
-      - match:
-          dependency_name: "io.github.data-rocks-team:schemaregistry-junit4"
+    ignore:
+      - dependency-name: "io.github.data-rocks-team:schemaregistry-junit4"
     reviewers:
       - "fnobilia"
