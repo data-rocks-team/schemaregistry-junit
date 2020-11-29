@@ -18,10 +18,8 @@ publishing {
             from components.java
             pom {
                 name = 'schemaregistry-junit'
-                description = ('schemaregistry-junit wraps Confluent Schema Registry, '
-                        + 'allowing you to more easily create and run integration tests using '
-                        + 'JUnit against a "real" SchemaRegistry server running within the '
-                        + 'context of your tests. No need to stand up an external deployment!')
+                description = ('A library that provides in-memory instances of Confluent Schema '
+                        + 'Registry to run your tests against.')
                 url = 'https://github.com/data-rocks-team/schemaregistry-junit'
                 licenses {
                     license {
