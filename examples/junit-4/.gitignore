@@ -1,0 +1,14 @@
+# Mac OsX
+.DS_Store
+
+# IntelliJ Idea
+.idea/
+*.iml
+
+# Gralde
+.gradle
+**/build/
+gradle-app.setting
+.gradletasknamecache
+# Ignore Gradle build output directory
+build
