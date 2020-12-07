@@ -32,7 +32,7 @@ subprojects {
     ext {
         assertjVersion = '3.18.1'
         apacheCuratorVersion = '5.1.0'
-        confluentVersion = '6.0.0'
+        confluentVersion = '6.0.1'
         kafkaJunitVersion = '3.2.2'
         jsonSchemaVersion = '1.12.1'
         junit4Version = '4.13.1'
