@@ -9,14 +9,10 @@ include 'schemaregistry-junit-core',
 // EXCLUDE_REGRESSION enable and disable modules for regression testing. It can be used at CI to
 // optimise resources and better parallelize the workflow
 if (System.env.EXCLUDE_REGRESSION != 'true') {
-    // All modules for regression testing should be listed in this include
-    include 'schemaregistry-junit-test:schemaregistry-junit-regression-test:baseline',
-            'schemaregistry-junit-test:schemaregistry-junit-regression-test:4.0',
-            'schemaregistry-junit-test:schemaregistry-junit-regression-test:4.1',
-            'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.0',
-            'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.1',
-            'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.2',
-            'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.3',
-            'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.4',
-            'schemaregistry-junit-test:schemaregistry-junit-regression-test:5.5'
+    // Automatically add all modules inside the regression-test folder
+    file('schemaregistry-junit-test/schemaregistry-junit-regression-test').eachDir { dir ->
+        if (dir.name != 'build')
+            include "schemaregistry-junit-test:schemaregistry-junit-regression-test:${dir.name}"
+    }
 }
+
