@@ -40,7 +40,7 @@ subprojects {
         lombokVersion = '1.18.16'
         protobufVersion = '3.14.0'
         slf4jVersion = '1.7.30'
-        testcontainersVersion = '1.15.0'
+        testcontainersVersion = '1.15.1'
     }
 
     // Every module is a Java library
