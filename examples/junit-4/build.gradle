@@ -20,14 +20,14 @@ repositories {
 }
 
 dependencies {
-    implementation 'io.confluent:kafka-avro-serializer:6.0.0'
-    implementation 'io.confluent:kafka-schema-registry-client:6.0.0'
+    implementation 'io.confluent:kafka-avro-serializer:6.0.1'
+    implementation 'io.confluent:kafka-schema-registry-client:6.0.1'
 
     testImplementation 'com.salesforce.kafka.test:kafka-junit4:3.2.2'
 
     // schema-registry junit
     testImplementation 'io.github.data-rocks-team:schemaregistry-junit4:local'
-    testImplementation 'io.confluent:kafka-schema-registry:6.0.0'
+    testImplementation 'io.confluent:kafka-schema-registry:6.0.1'
 
     testImplementation 'junit:junit:4.13.1'
 
