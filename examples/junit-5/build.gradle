@@ -19,15 +19,19 @@ repositories {
     mavenLocal()
 }
 
+ext {
+    confluentVersion = '6.0.1'
+}
+
 dependencies {
-    implementation 'io.confluent:kafka-avro-serializer:6.0.0'
-    implementation 'io.confluent:kafka-schema-registry-client:6.0.0'
+    implementation "io.confluent:kafka-avro-serializer:$confluentVersion"
+    implementation "io.confluent:kafka-schema-registry-client:$confluentVersion"
 
     testImplementation 'com.salesforce.kafka.test:kafka-junit5:3.2.2'
 
     // schema-registry junit
     testImplementation 'io.github.data-rocks-team:schemaregistry-junit5:local'
-    testImplementation "io.confluent:kafka-schema-registry:6.0.0"
+    testImplementation "io.confluent:kafka-schema-registry:$confluentVersion"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
