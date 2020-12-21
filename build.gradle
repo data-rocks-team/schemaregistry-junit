@@ -27,21 +27,21 @@ allprojects {
     }
 }
 
-subprojects {
+ext {
+    assertjVersion = '3.18.1'
+    apacheCuratorVersion = '5.1.0'
+    confluentVersion = '6.0.1'
+    kafkaJunitVersion = '3.2.2'
+    jsonSchemaVersion = '1.12.1'
+    junit4Version = '4.13.1'
+    junitJupiterVersion = '5.7.0'
+    lombokVersion = '1.18.16'
+    protobufVersion = '3.14.0'
+    slf4jVersion = '1.7.30'
+    testcontainersVersion = '1.15.1'
+}
 
-    ext {
-        assertjVersion = '3.18.1'
-        apacheCuratorVersion = '5.1.0'
-        confluentVersion = '6.0.1'
-        kafkaJunitVersion = '3.2.2'
-        jsonSchemaVersion = '1.12.1'
-        junit4Version = '4.13.1'
-        junitJupiterVersion = '5.7.0'
-        lombokVersion = '1.18.16'
-        protobufVersion = '3.14.0'
-        slf4jVersion = '1.7.30'
-        testcontainersVersion = '1.15.1'
-    }
+subprojects {
 
     // Every module is a Java library
     apply plugin: 'java-library'
@@ -73,4 +73,26 @@ subprojects {
 
     // Add flag to run specific group of tests
     apply from: "$rootProject.projectDir/on-off-test.gradle"
+}
+
+task setDependenciesForExample {
+    group 'Configure Example'
+    description 'Set dependencies for example using centralised ext variables'
+    doLast {
+        fileTree("examples")
+            .filter { it.isFile() }
+            .filter { it.name == 'build.gradle' }
+            .files
+            .path
+            .each {file ->
+                File buildGradle = new File(file)
+                String content = buildGradle.text
+
+                project.ext.properties
+                    .each{ k, v ->
+                        content = content.replaceAll("$k = 'PLACEHOLDER'", "$k = '$v'")}
+
+                buildGradle.write(content)
+            }
+    }
 }
