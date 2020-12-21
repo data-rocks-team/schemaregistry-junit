@@ -74,6 +74,13 @@ Every build is automatically tested against the latest patch version of every mi
 - [JUnit 5 example](/examples/junit-5)
 - [JUnit 4 example](/examples/junit-4)
 
+Before compiling any example, run `./gradlew setDependenciesForExample` in the main project. This 
+gradle task will ensure that the example project will use the same dependency versions used in the
+main project. To ensure that `setDependenciesForExample` works as expected, dependencies 
+version should be defined in the `ext {}` section in the [main build.gradle](build.gradle) and the
+example project should define versions as `nameOfTheDependencyVersion = PLACEHOLDER` (an example 
+can be found [here](examples/junit-5/build.gradle)). 
+
 ## Contributing
 Found a bug? Think you've got an awesome feature you want to add? We welcome contributions!
 

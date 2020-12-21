@@ -25,6 +25,8 @@ jobs:
           restore-keys: ${{ runner.os }}-example-gradle
       - name: Build with Gradle
         run: ./gradlew publishToMavenLocal -PdisableCheckstyle -PdisableJacoco -PdisablePmd -x test
+      - name: Set dependency versions
+        run: ./gradlew setDependenciesForExample
       - name: Run Junit5 example
         run: cd ./examples/junit-5 && ./gradlew build
       - name: Run Junit4 example
