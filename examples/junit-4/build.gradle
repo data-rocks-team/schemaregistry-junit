@@ -20,20 +20,24 @@ repositories {
 }
 
 ext {
-    confluentVersion = '6.0.1'
+    // Run ./gradlew setDependenciesForExample to set this properties
+    assertjVersion = 'PLACEHOLDER'
+    confluentVersion = 'PLACEHOLDER'
+    kafkaJunitVersion = 'PLACEHOLDER'
+    junit4Version = 'PLACEHOLDER'
 }
 
 dependencies {
     implementation "io.confluent:kafka-avro-serializer:$confluentVersion"
     implementation "io.confluent:kafka-schema-registry-client:$confluentVersion"
 
-    testImplementation 'com.salesforce.kafka.test:kafka-junit4:3.2.2'
+    testImplementation "com.salesforce.kafka.test:kafka-junit4:$kafkaJunitVersion"
 
     // schema-registry junit
     testImplementation 'io.github.data-rocks-team:schemaregistry-junit4:local'
     testImplementation "io.confluent:kafka-schema-registry:$confluentVersion"
 
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation "junit:junit:$junit4Version"
 
-    testImplementation 'org.assertj:assertj-core:3.18.1'
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
 }

@@ -6,19 +6,3 @@ updates:
       interval: "weekly"
     reviewers:
       - "fnobilia"
-  - package-ecosystem: "gradle"
-    directory: "/examples/junit-5"
-    schedule:
-      interval: "weekly"
-    ignore:
-      - dependency-name: "io.github.data-rocks-team:schemaregistry-junit5"
-    reviewers:
-      - "fnobilia"
-  - package-ecosystem: "gradle"
-    directory: "/examples/junit-4"
-    schedule:
-      interval: "weekly"
-    ignore:
-      - dependency-name: "io.github.data-rocks-team:schemaregistry-junit4"
-    reviewers:
-      - "fnobilia"
