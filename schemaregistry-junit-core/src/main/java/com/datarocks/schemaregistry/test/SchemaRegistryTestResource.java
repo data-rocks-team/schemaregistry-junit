@@ -131,6 +131,7 @@ public class SchemaRegistryTestResource<T extends SchemaRegistryTestResource> {
     validateServerDoesNotExist("Schema-registry test server does not exist yet!");
 
     server.stop();
+    server = null;
   }
 
   /**

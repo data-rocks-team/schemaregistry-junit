@@ -218,4 +218,23 @@ class SchemaRegistryTestResourceTest {
         .isThrownBy(schemaRegistry::shutdown)
         .withMessage("Schema-registry test server does not exist yet!");
   }
+
+  @Test
+  void shouldNullServerAfterCallingShutdown() {
+    SchemaRegistryTestResource<?> schemaRegistry = new SchemaRegistryTestResource<>()
+            .withProperty(SchemaRegistryConfig.KAFKASTORE_BOOTSTRAP_SERVERS_CONFIG,
+                    kafka.getKafkaConnectString());
+
+    assertThatCode(schemaRegistry::start)
+            .doesNotThrowAnyException();
+
+    assertThatCode(schemaRegistry::shutdown)
+            .doesNotThrowAnyException();
+
+    assertThatCode(schemaRegistry::start)
+            .doesNotThrowAnyException();
+
+    assertThatCode(schemaRegistry::shutdown)
+            .doesNotThrowAnyException();
+  }
 }
