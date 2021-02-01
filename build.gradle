@@ -35,7 +35,7 @@ ext {
     jsonSchemaVersion = '1.12.1'
     junit4Version = '4.13.1'
     junitJupiterVersion = '5.7.0'
-    lombokVersion = '1.18.16'
+    lombokVersion = '1.18.18'
     protobufVersion = '3.14.0'
     slf4jVersion = '1.7.30'
     testcontainersVersion = '1.15.1'
