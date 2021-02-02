@@ -8,7 +8,7 @@ sonarqube {
         property "sonar.projectKey", "data-rocks-team_schemaregistry-junit"
         property "sonar.organization", "data-rocks-team"
         property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.scanner.force-deprecated-java-version", "true"
+        property "sonar.scanner.force-deprecated-java-version-grace-period", "true"
         property "sonar.coverage.exclusions", "**/schemaregistry-junit-test/**"
     }
 }
