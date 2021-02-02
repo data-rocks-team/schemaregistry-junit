@@ -6,7 +6,7 @@ import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import java.util.List;
+import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
@@ -82,7 +82,7 @@ class SchemaRegistryTestResourceLifecycleTest {
 
     assertThatCode(() -> kafka.getKafkaTestUtils()
             .getAdminClient()
-            .deleteTopics(List.of("_schemas")).all().get())
+            .deleteTopics(Collections.singletonList("_schemas")).all().get())
             .doesNotThrowAnyException();
 
     Thread.sleep(2_000L);
