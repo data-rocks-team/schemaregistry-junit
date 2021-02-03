@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SchemaRegistryTestUtils {
 
-  private static final int DEFAULT_CACHE_REST_CLIENT_SIZE = 1000;
+  private static final int DEFAULT_CACHE_REST_CLIENT_SIZE = 500;
 
   private final SchemaRegistryProperties properties;
 
