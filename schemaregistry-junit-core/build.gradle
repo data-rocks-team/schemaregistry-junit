@@ -16,4 +16,6 @@ dependencies {
     testImplementation "com.salesforce.kafka.test:kafka-junit5:$kafkaJunitVersion"
     testImplementation "org.testcontainers:testcontainers:$testcontainersVersion"
     testImplementation "org.testcontainers:junit-jupiter:$testcontainersVersion"
+
+    testImplementation "org.awaitility:awaitility:$awaitilityVersion"
 }
