@@ -11,8 +11,28 @@ include 'schemaregistry-junit-core',
 if (System.env.EXCLUDE_REGRESSION != 'true') {
     // Automatically add all modules inside the regression-test folder
     file('schemaregistry-junit-test/schemaregistry-junit-regression-test').eachDir { dir ->
-        if (dir.name != 'build')
-            include "schemaregistry-junit-test:schemaregistry-junit-regression-test:${dir.name}"
+        if (dir.name != 'build') {
+            // baseline module is required by all regression testing
+            if (dir.name == 'baseline') {
+                include "schemaregistry-junit-test:schemaregistry-junit-regression-test:${dir.name}"
+            } else {
+                if (System.env.RUN_ONLY_REGRESSION_SUPPORTING_NEW_JDK == 'true') {
+                    // Versions older than 5.0 requires JDK 1.8 to run.
+                    // RUN_ONLY_REGRESSION_SUPPORTING_NEW_JDK can be used to exclude tests requiring
+                    // an older JDK
+                    if (!dir.name.contains("4."))
+                        include "schemaregistry-junit-test:schemaregistry-junit-regression-test:${dir.name}"
+                } else if (System.env.RUN_ONLY_REGRESSION_REQUIRING_OLD_JDK == 'true') {
+                    // Versions older than 5.0 requires JDK 1.8 to run.
+                    // RUN_ONLY_REGRESSION_REQUIRING_OLD_JDK can be used to run only these tests using
+                    // a JDK 1.8
+                    if (dir.name.contains("4."))
+                        include "schemaregistry-junit-test:schemaregistry-junit-regression-test:${dir.name}"
+                } else {
+                    include "schemaregistry-junit-test:schemaregistry-junit-regression-test:${dir.name}"
+                }
+            }
+        }
     }
 }
 
