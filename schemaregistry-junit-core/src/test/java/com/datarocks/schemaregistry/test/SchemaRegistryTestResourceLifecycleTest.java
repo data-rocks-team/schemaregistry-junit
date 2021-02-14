@@ -6,12 +6,10 @@ import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import java.time.Duration;
 import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.awaitility.Awaitility.await;
 
 class SchemaRegistryTestResourceLifecycleTest {
 
@@ -101,6 +99,8 @@ class SchemaRegistryTestResourceLifecycleTest {
         .doesNotThrowAnyException();
   }
 
+  @SneakyThrows
+  @SuppressWarnings({"java:S2925"})
   private void waitForKafkaToPropagateTopicDeletion() {
     // Kafka is not designed to delete a topic and recreate it a few milliseconds after.
     // Such behaviour causes inconsistency: AdminClient method to list all topics does not
@@ -108,12 +108,6 @@ class SchemaRegistryTestResourceLifecycleTest {
     // present.
     // A sleep is required to between deleting the __schema topic and restarting the SchemaRegistry
     // to prevent the above described inconsistency.
-    // The same behaviour could be achieved with a Thread.sleep(2000) but SonarCloud correctly
-    // reports it as a code smell.
-    long start = System.currentTimeMillis();
-
-    await()
-        .atLeast(Duration.ofSeconds(2))
-        .until(() -> System.currentTimeMillis() - start >= 2000);
+    Thread.sleep(2000);
   }
 }
