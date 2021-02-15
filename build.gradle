@@ -38,7 +38,7 @@ ext {
     lombokVersion = '1.18.18'
     protobufVersion = '3.14.0'
     slf4jVersion = '1.7.30'
-    testcontainersVersion = '1.15.1'
+    testcontainersVersion = '1.15.2'
 }
 
 subprojects {
