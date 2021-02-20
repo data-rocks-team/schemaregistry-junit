@@ -15,85 +15,99 @@ class SchemaRegistryTestResourceLifecycleTest {
 
   @RegisterExtension
   public static final SharedKafkaTestResource kafka = new SharedKafkaTestResource()
-          .withBrokers(1);
+      .withBrokers(1);
 
   private static final String TOPIC = "test-scenario-string-json";
 
   private static final String SCHEMA = "{"
-          + "\"$schema\":\"http://json-schema.org/draft-07/schema#\","
-          + "\"title\":\"User\","
-          + "\"type\":\"object\","
-          + "\"additionalProperties\":false,"
-          + "\"properties\":{"
-          + "\"firstName\":{\"oneOf\":[{\"type\":\"null\",\"title\":\"Not included\"},"
-          + "{\"type\":\"string\"}]},"
-          + "\"lastName\":{\"oneOf\":[{\"type\":\"null\",\"title\":\"Not included\"},"
-          + "{\"type\":\"string\"}]}}}";
+      + "\"$schema\":\"http://json-schema.org/draft-07/schema#\","
+      + "\"title\":\"User\","
+      + "\"type\":\"object\","
+      + "\"additionalProperties\":false,"
+      + "\"properties\":{"
+      + "\"firstName\":{\"oneOf\":[{\"type\":\"null\",\"title\":\"Not included\"},"
+      + "{\"type\":\"string\"}]},"
+      + "\"lastName\":{\"oneOf\":[{\"type\":\"null\",\"title\":\"Not included\"},"
+      + "{\"type\":\"string\"}]}}}";
 
   @Test
   @SneakyThrows
   void shouldBeAbleToAccessSchemasAfterSchemaRegistryTestResourceRestart() {
     SchemaRegistryTestResource<?> schemaRegistry = new SchemaRegistryTestResource<>()
-            .withBootstrapServers(kafka.getKafkaConnectString())
-            .withRandomPort();
+        .withBootstrapServers(kafka.getKafkaConnectString())
+        .withRandomPort();
 
     assertThatCode(schemaRegistry::start)
-            .doesNotThrowAnyException();
+        .doesNotThrowAnyException();
 
     assertThatCode(() -> schemaRegistry
-            .schemaRegistryTestUtils()
-            .schemaRegistryClient().register(TOPIC + "-value", new JsonSchema(SCHEMA)));
+        .schemaRegistryTestUtils()
+        .schemaRegistryClient().register(TOPIC + "-value", new JsonSchema(SCHEMA)))
+        .doesNotThrowAnyException();
 
     assertThat(schemaRegistry.schemaRegistryTestUtils().schemaRegistryClient().getAllSubjects())
-            .hasSize(1);
+        .hasSize(1);
 
     assertThatCode(schemaRegistry::shutdown)
-            .doesNotThrowAnyException();
+        .doesNotThrowAnyException();
 
     assertThatCode(schemaRegistry::start)
-            .doesNotThrowAnyException();
+        .doesNotThrowAnyException();
 
     assertThat(schemaRegistry.schemaRegistryTestUtils().schemaRegistryClient().getAllSubjects())
-            .hasSize(1);
+        .hasSize(1);
 
     assertThatCode(schemaRegistry::shutdown)
-            .doesNotThrowAnyException();
+        .doesNotThrowAnyException();
   }
 
   @Test
   @SneakyThrows
   void shouldNotBeAbleToAccessSchemasOnEmptySchemasTopic() {
     SchemaRegistryTestResource<?> schemaRegistry = new SchemaRegistryTestResource<>()
-            .withBootstrapServers(kafka.getKafkaConnectString())
-            .withRandomPort();
+        .withBootstrapServers(kafka.getKafkaConnectString())
+        .withRandomPort();
 
     assertThatCode(schemaRegistry::start)
-            .doesNotThrowAnyException();
+        .doesNotThrowAnyException();
 
     assertThatCode(() -> schemaRegistry
-            .schemaRegistryTestUtils()
-            .schemaRegistryClient().register(TOPIC + "-value", new JsonSchema(SCHEMA)));
+        .schemaRegistryTestUtils()
+        .schemaRegistryClient().register(TOPIC + "-value", new JsonSchema(SCHEMA)))
+        .doesNotThrowAnyException();
 
     assertThat(schemaRegistry.schemaRegistryTestUtils().schemaRegistryClient().getAllSubjects())
-            .hasSize(1);
+        .hasSize(1);
 
     assertThatCode(schemaRegistry::shutdown)
-            .doesNotThrowAnyException();
+        .doesNotThrowAnyException();
 
     assertThatCode(() -> kafka.getKafkaTestUtils()
-            .getAdminClient()
-            .deleteTopics(Collections.singletonList("_schemas")).all().get())
-            .doesNotThrowAnyException();
+        .getAdminClient()
+        .deleteTopics(Collections.singletonList("_schemas")).all().get())
+        .doesNotThrowAnyException();
 
-    Thread.sleep(2_000L);
+    waitForKafkaToPropagateTopicDeletion();
 
     assertThatCode(schemaRegistry::start)
-            .doesNotThrowAnyException();
+        .doesNotThrowAnyException();
 
     assertThat(schemaRegistry.schemaRegistryTestUtils().schemaRegistryClient().getAllSubjects())
-            .isEmpty();
+        .isEmpty();
 
     assertThatCode(schemaRegistry::shutdown)
-            .doesNotThrowAnyException();
+        .doesNotThrowAnyException();
+  }
+
+  @SneakyThrows
+  @SuppressWarnings({"java:S2925"})
+  private void waitForKafkaToPropagateTopicDeletion() {
+    // Kafka is not designed to delete a topic and recreate it a few milliseconds after.
+    // Such behaviour causes inconsistency: AdminClient method to list all topics does not
+    // return the just deleted topic, while the method to create the topic reports to be already
+    // present.
+    // A sleep is required to between deleting the __schema topic and restarting the SchemaRegistry
+    // to prevent the above described inconsistency.
+    Thread.sleep(2000);
   }
 }
