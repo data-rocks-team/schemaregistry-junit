@@ -35,26 +35,73 @@ This project was inspired by [kafka-junit](https://github.com/salesforce/kafka-j
 version from 4.0.0 to the latest
 
 ## Installation
-The easiest way is to include it in your project(s) by ways of a Maven dependency. Binary, Sources 
-and Javadocs are all available from 
+The easiest way to include `schemaregistry-junit` in your project(s) is via Maven dependency. Binary, Sources 
+and Javadocs are all available in 
 [Maven Central](https://search.maven.org/search?q=g:io.github.data-rocks-team).
 
 For JUnit 5
-```
+<details>
+  <summary>Maven</summary>
+  
+  #### Example POM
+```xml
+<!-- Declare schemaregistry-junit5 dependency -->
 <dependency>
   <groupId>io.github.data-rocks-team</groupId>
   <artifactId>schemaregistry-junit5</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
+</dependency>
+
+<!-- Include Confluent Schema-Registry -->
+<dependency>
+  <groupId>io.confluent</groupId>
+  <artifactId>kafka-schema-registry</artifactId>
+  <version>X.X.X</version>
 </dependency>
 ```
-For JUnit 4
+</details>
+
+<details>
+  <summary>Gradle</summary>
+  
+  #### Example build.gradle
+```groovy
+testImplementation 'io.github.data-rocks-team:schemaregistry-junit5:0.1.1'
+testImplementation 'io.confluent:kafka-schema-registry:X.X.X'
 ```
+</details>
+
+For JUnit 4
+<details>
+  <summary>Maven</summary>
+  
+  #### Example POM
+```xml
+<!-- Declare schemaregistry-junit5 dependency -->
 <dependency>
   <groupId>io.github.data-rocks-team</groupId>
   <artifactId>schemaregistry-junit4</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
+</dependency>
+
+<!-- Include Confluent Schema-Registry -->
+<dependency>
+  <groupId>io.confluent</groupId>
+  <artifactId>kafka-schema-registry</artifactId>
+  <version>X.X.X</version>
 </dependency>
 ```
+</details>
+
+<details>
+  <summary>Gradle</summary>
+  
+  #### Example build.gradle
+```groovy
+testImplementation 'io.github.data-rocks-team:schemaregistry-junit4:0.1.1'
+testImplementation 'io.confluent:kafka-schema-registry:X.X.X'
+```
+</details>
 
 ## How it works
 Given a class using `SharedSchemaRegistryTestResource`, before all tests start, 
