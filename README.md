@@ -136,6 +136,9 @@ Any questions or suggestions? Get in touch!
 
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/FraNobilia)
 
+## Blog post
+- [Docker free kafka integration tests](https://medium.com/data-rocks/docker-free-kafka-integration-tests-4cd045d6947a)
+
 ## License
 MIT [view license](/LICENSE)
 
