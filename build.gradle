@@ -36,7 +36,7 @@ ext {
     junit4Version = '4.13.2'
     junitJupiterVersion = '5.7.1'
     lombokVersion = '1.18.20'
-    protobufVersion = '3.16.0'
+    protobufVersion = '3.17.0'
     slf4jVersion = '1.7.30'
     testcontainersVersion = '1.15.2'
 }
