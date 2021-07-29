@@ -28,7 +28,7 @@ allprojects {
 }
 
 ext {
-    apacheCuratorVersion = '5.1.0'
+    apacheCuratorVersion = '5.2.0'
     assertjVersion = '3.20.2'
     confluentVersion = '6.1.1'
     kafkaJunitVersion = '3.2.2'
@@ -37,7 +37,7 @@ ext {
     junitJupiterVersion = '5.7.2'
     lombokVersion = '1.18.20'
     protobufVersion = '3.17.3'
-    slf4jVersion = '1.7.31'
+    slf4jVersion = '1.7.32'
     testcontainersVersion = '1.15.2'
 }
 
