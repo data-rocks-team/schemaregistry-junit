@@ -1,4 +1,7 @@
 dependencies {
+    // schema-registry junit
+    api 'io.github.data-rocks-team:schemaregistry-junit5:local'
+
     api "com.salesforce.kafka.test:kafka-junit5:$kafkaJunitVersion"
 
     // SchemaRegistry dependencies are only needed for compiling here because they will be overridden with different

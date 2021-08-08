@@ -33,18 +33,12 @@ subprojects {
     // Every module is a Java library
     apply plugin: 'java-library'
 
-    // Checkstyle
-    apply from: "$rootProject.projectDir/../checkstyle.gradle"
-
     dependencies {
         // Lombok configuration
         compileOnly "org.projectlombok:lombok:$lombokVersion"
         annotationProcessor "org.projectlombok:lombok:$lombokVersion"
         testImplementation "org.projectlombok:lombok:$lombokVersion"
         testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
-
-        // schema-registry junit
-        testImplementation 'io.github.data-rocks-team:schemaregistry-junit5:local'
 
         testImplementation "org.assertj:assertj-core:$assertjVersion"
 
