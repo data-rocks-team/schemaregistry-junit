@@ -11,7 +11,6 @@ dependencies {
 
     // SchemaRegistry is configured compileOnly and therefore it needs to be added again while testing
     testImplementation "io.confluent:kafka-schema-registry:$confluentVersion"
-    testImplementation "io.confluent:kafka-schema-registry-client:$confluentVersion"
 
     testImplementation "com.salesforce.kafka.test:kafka-junit5:$kafkaJunitVersion"
     testImplementation "org.testcontainers:testcontainers:$testcontainersVersion"

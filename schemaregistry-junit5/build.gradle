@@ -10,7 +10,6 @@ dependencies {
     testImplementation project(':schemaregistry-junit-test:schemaregistry-junit-test-utils')
 
     testImplementation "io.confluent:kafka-schema-registry:$confluentVersion"
-    testImplementation "io.confluent:kafka-schema-registry-client:$confluentVersion"
 
     testImplementation "com.salesforce.kafka.test:kafka-junit5:$kafkaJunitVersion"
 }

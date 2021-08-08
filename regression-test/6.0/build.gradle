@@ -2,6 +2,5 @@ dependencies {
     testImplementation project(':baseline')
 
     testImplementation 'io.confluent:kafka-schema-registry:6.0.1'
-    testImplementation 'io.confluent:kafka-schema-registry-client:6.0.1'
     testImplementation 'io.confluent:kafka-avro-serializer:6.0.1'
 }
