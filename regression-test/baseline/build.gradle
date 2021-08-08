@@ -1,5 +1,6 @@
 dependencies {
-    api project(':schemaregistry-junit5')
+    // schema-registry junit
+    api 'io.github.data-rocks-team:schemaregistry-junit5:local'
 
     api "com.salesforce.kafka.test:kafka-junit5:$kafkaJunitVersion"
 

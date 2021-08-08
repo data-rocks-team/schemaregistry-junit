@@ -1,4 +1,4 @@
-name: regression-testing
+name: regression-testing-5.x
 
 on:
   pull_request:
@@ -21,9 +21,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
-          key: ${{ runner.os }}-regression-gradle-${{ hashFiles('**/*.gradle') }}
+          key: ${{ runner.os }}-regression-gradle-5-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-regression-gradle
       - name: Build with Gradle
-        run: ./gradlew build -PexcludeMainTesting=true
+        run: ./gradlew publishToMavenLocal -PdisableCheckstyle -PdisableJacoco -PdisablePmd -x test
+      - name: Set dependency versions
+        run: ./gradlew setDependenciesForRegressionTesting
+      - name: Run Regression Tests
+        run: cd ./regression-test && ./gradlew build
         env:
-          RUN_ONLY_REGRESSION_SUPPORTING_NEW_JDK: true
+          RUN_5: true

@@ -1,5 +1,5 @@
 dependencies {
-    testImplementation project(':schemaregistry-junit-test:schemaregistry-junit-regression-test:baseline')
+    testImplementation project(':baseline')
 
     testImplementation 'io.confluent:kafka-schema-registry:5.4.2'
     testImplementation 'io.confluent:kafka-schema-registry-client:5.4.2'
