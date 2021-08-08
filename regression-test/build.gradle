@@ -17,6 +17,8 @@ repositories {
 ext {
     // Run ./gradlew setDependenciesForRegressionTesting to set this properties
     assertjVersion = 'PLACEHOLDER'
+    confluentVersion = 'PLACEHOLDER'
+    kafkaJunitVersion = 'PLACEHOLDER'
     junitJupiterVersion = 'PLACEHOLDER'
     lombokVersion = 'PLACEHOLDER'
 }
@@ -27,7 +29,7 @@ subprojects {
     apply plugin: 'java-library'
 
     // Checkstyle
-    apply from: "../$rootProject.projectDir/checkstyle.gradle"
+    apply from: "$rootProject.projectDir/../checkstyle.gradle"
 
     dependencies {
         // Lombok configuration
@@ -53,5 +55,5 @@ subprojects {
     }
 
     // Keep Java8 compatibility
-    apply from: "../$rootProject.projectDir/keep-java8-compatibility.gradle"
+    apply from: "$rootProject.projectDir/../keep-java8-compatibility.gradle"
 }

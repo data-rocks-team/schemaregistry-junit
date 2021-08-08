@@ -1,6 +1,4 @@
 dependencies {
-    api project(':schemaregistry-junit5')
-
     api "com.salesforce.kafka.test:kafka-junit5:$kafkaJunitVersion"
 
     // SchemaRegistry dependencies are only needed for compiling here because they will be overridden with different
