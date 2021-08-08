@@ -31,8 +31,6 @@ jobs:
           restore-keys: ${{ runner.os }}-build-gradle
       - name: Build with Gradle
         run: ./gradlew build
-        env:
-          EXCLUDE_REGRESSION: true
       - name: Analyze with Sonarqube
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

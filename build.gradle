@@ -18,7 +18,7 @@ allprojects {
         jcenter()
         // Add Confluent maven repo for Confluent dependencies
         maven {
-            url "http://packages.confluent.io/maven/"
+            url "https://packages.confluent.io/maven/"
         }
         // Required for com.github.everit-org.json-schema:org.everit.json.schema:
         maven {
@@ -71,22 +71,8 @@ subprojects {
     // Jacoco
     apply from: "$rootProject.projectDir/jacoco.gradle"
 
-    // Add flag to run specific group of tests
-    apply from: "$rootProject.projectDir/on-off-test.gradle"
-
     // Keep Java8 compatibility
-    if (JavaVersion.current().java9Compatible) {
-        project.afterEvaluate {
-            tasks.withType(JavaCompile) {
-                def version = "8"
-                project.logger.info("Configuring $name to use --release $version")
-                options.compilerArgs.addAll(['--release', version])
-            }
-        }
-    } else {
-        project.logger.warn("-PcrossCompile not supported prior to JDK 9. "
-                + "Current JDK is ${JavaVersion.current()}")
-    }
+    apply from: "$rootProject.projectDir/keep-java8-compatibility.gradle"
 }
 
 task setDependenciesForExample {
@@ -108,5 +94,27 @@ task setDependenciesForExample {
 
                 buildGradle.write(content)
             }
+    }
+}
+
+task setDependenciesForRegressionTesting {
+    group 'Configure Regression Testing'
+    description 'Set dependencies for regression testing using centralised ext variables'
+    doLast {
+        fileTree("regression-test")
+                .filter { it.isFile() }
+                .filter { it.name == 'build.gradle' }
+                .files
+                .path
+                .each {file ->
+                    File buildGradle = new File(file)
+                    String content = buildGradle.text
+
+                    project.ext.properties
+                            .each{ k, v ->
+                                content = content.replaceAll("$k = 'PLACEHOLDER'", "$k = '$v'")}
+
+                    buildGradle.write(content)
+                }
     }
 }

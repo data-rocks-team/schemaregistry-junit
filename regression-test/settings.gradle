@@ -1,0 +1,24 @@
+rootProject.name = 'regression-test'
+
+// All modules shared across all tests should be listed in this include
+include 'baseline'
+
+// Automatically add all modules inside the regression-test folder based on their target version
+file('.').eachDir { dir ->
+    if (dir.name != 'build' && dir.name != 'baseline') {
+        // Add all modules for 4.*
+        if (System.env.RUN_4 == 'true' && dir.name.contains("4.")) {
+            include "${dir.name}"
+        }
+
+        // Add all modules for 5.*
+        if (System.env.RUN_5 == 'true' && dir.name.contains("5.")) {
+            include "${dir.name}"
+        }
+
+        // Add all modules for 6.*
+        if (System.env.RUN_6 == 'true' && dir.name.contains("6.")) {
+            include "${dir.name}"
+        }
+    }
+}

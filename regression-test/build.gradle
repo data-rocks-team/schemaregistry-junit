@@ -1,0 +1,57 @@
+plugins {
+    // Apply the java plugin to add support for Java
+    id 'java'
+}
+
+repositories {
+    // Use jcenter for resolving dependencies.
+    jcenter()
+    // Add Confluent maven repo for Confluent dependencies
+    maven {
+        url "https://packages.confluent.io/maven/"
+    }
+    // Add local repo this way regression tests can be run on every build
+    mavenLocal()
+}
+
+ext {
+    // Run ./gradlew setDependenciesForRegressionTesting to set this properties
+    assertjVersion = 'PLACEHOLDER'
+    junitJupiterVersion = 'PLACEHOLDER'
+    lombokVersion = 'PLACEHOLDER'
+}
+
+subprojects {
+
+    // Every module is a Java library
+    apply plugin: 'java-library'
+
+    // Checkstyle
+    apply from: "../$rootProject.projectDir/checkstyle.gradle"
+
+    dependencies {
+        // Lombok configuration
+        compileOnly "org.projectlombok:lombok:$lombokVersion"
+        annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+        testImplementation "org.projectlombok:lombok:$lombokVersion"
+        testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+        // schema-registry junit
+        testImplementation 'io.github.data-rocks-team:schemaregistry-junit5:local'
+
+        testImplementation "org.assertj:assertj-core:$assertjVersion"
+
+        testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+
+        testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
+        testImplementation "org.junit.jupiter:junit-jupiter-params:$junitJupiterVersion"
+    }
+
+    test {
+        // Use junit platform for unit tests
+        useJUnitPlatform()
+    }
+
+    // Keep Java8 compatibility
+    apply from: "../$rootProject.projectDir/keep-java8-compatibility.gradle"
+}

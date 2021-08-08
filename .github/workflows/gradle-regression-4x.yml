@@ -1,0 +1,39 @@
+name: regression-testing-4.x
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-regression-gradle-4-${{ hashFiles('**/examples/**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-example-gradle
+      - name: Build with Gradle
+        run: ./gradlew publishToMavenLocal -PdisableCheckstyle -PdisableJacoco -PdisablePmd -x test
+      - name: Set dependency versions
+        run: ./gradlew setDependenciesForRegressionTesting
+      - name: Switch to JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Show java version
+        run: java -version
+      - name: Run Regression Tests
+        run: cd ./regression-test && ./gradlew build
+        env:
+          RUN_4: true
