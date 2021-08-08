@@ -3,15 +3,20 @@ plugins {
     id 'java'
 }
 
-repositories {
-    // Use jcenter for resolving dependencies.
-    jcenter()
-    // Add Confluent maven repo for Confluent dependencies
-    maven {
-        url "https://packages.confluent.io/maven/"
+allprojects {
+    repositories {
+        jcenter()
+        // Add Confluent maven repo for Confluent dependencies
+        maven {
+            url "https://packages.confluent.io/maven/"
+        }
+        // Required for com.github.everit-org.json-schema:org.everit.json.schema:
+        maven {
+            url "https://jitpack.io"
+        }
+        // Add local repo this way regression tests can be run on every build
+        mavenLocal()
     }
-    // Add local repo this way regression tests can be run on every build
-    mavenLocal()
 }
 
 ext {
