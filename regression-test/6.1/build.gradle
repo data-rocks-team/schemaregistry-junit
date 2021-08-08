@@ -1,8 +1,8 @@
 dependencies {
     testImplementation project(':baseline')
 
-    testImplementation 'io.confluent:kafka-schema-registry:6.0.1'
-    testImplementation 'io.confluent:kafka-avro-serializer:6.0.1'
+    testImplementation 'io.confluent:kafka-schema-registry:6.1.1'
+    testImplementation 'io.confluent:kafka-avro-serializer:6.1.1'
 
     testImplementation('com.salesforce.kafka.test:kafka-junit5') {
         version {
