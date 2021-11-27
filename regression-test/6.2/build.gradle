@@ -1,0 +1,6 @@
+dependencies {
+    testImplementation project(':baseline')
+
+    testImplementation 'io.confluent:kafka-schema-registry:6.2.1'
+    testImplementation 'io.confluent:kafka-avro-serializer:6.2.1'
+}
