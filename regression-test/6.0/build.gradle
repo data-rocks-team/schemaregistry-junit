@@ -4,6 +4,7 @@ dependencies {
     testImplementation 'io.confluent:kafka-schema-registry:6.0.1'
     testImplementation 'io.confluent:kafka-avro-serializer:6.0.1'
 
+    // Required to ensure the correct scala version is loaded
     testImplementation('com.salesforce.kafka.test:kafka-junit5') {
         version {
             strictly '3.2.2'
