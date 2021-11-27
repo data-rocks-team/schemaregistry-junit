@@ -1,8 +1,8 @@
 package com.datarocks.schemaregistry.test;
 
+import com.google.common.base.Strings;
 import io.confluent.kafka.schemaregistry.rest.SchemaRegistryConfig;
 import io.confluent.rest.RestConfigException;
-import joptsimple.internal.Strings;
 
 import java.util.Optional;
 import java.util.Properties;

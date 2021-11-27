@@ -1,0 +1,13 @@
+dependencies {
+    testImplementation project(':baseline')
+
+    testImplementation 'io.confluent:kafka-schema-registry:6.2.1'
+    testImplementation 'io.confluent:kafka-avro-serializer:6.2.1'
+
+    // Required to ensure the correct Kafka Server version
+    testImplementation('com.salesforce.kafka.test:kafka-junit5') {
+        version {
+            strictly '3.2.3'
+        }
+    }
+}
