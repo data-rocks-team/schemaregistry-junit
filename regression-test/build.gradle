@@ -22,6 +22,7 @@ allprojects {
 ext {
     // Run ./gradlew setDependenciesForRegressionTesting to set this properties
     assertjVersion = 'PLACEHOLDER'
+    confluentVersion = 'PLACEHOLDER'
     kafkaJunitVersion = 'PLACEHOLDER'
     junitJupiterVersion = 'PLACEHOLDER'
     lombokVersion = 'PLACEHOLDER'
