@@ -34,7 +34,7 @@ ext {
     kafkaJunitVersion = '3.2.3'
     jsonSchemaVersion = '1.12.1'
     junit4Version = '4.13.2'
-    junitJupiterVersion = '5.8.1'
+    junitJupiterVersion = '5.8.2'
     lombokVersion = '1.18.22'
     protobufVersion = '3.19.1'
     slf4jVersion = '1.7.32'
