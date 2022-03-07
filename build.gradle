@@ -31,7 +31,7 @@ ext {
     apacheCuratorVersion = '5.2.0'
     assertjVersion = '3.22.0'
     confluentVersion = '7.0.1'
-    kafkaJunitVersion = '3.2.3'
+    kafkaJunitVersion = '3.2.4'
     jsonSchemaVersion = '1.12.1'
     junit4Version = '4.13.2'
     junitJupiterVersion = '5.8.2'
