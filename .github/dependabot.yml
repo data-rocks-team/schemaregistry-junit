@@ -6,3 +6,6 @@ updates:
       interval: "weekly"
     reviewers:
       - "fnobilia"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
