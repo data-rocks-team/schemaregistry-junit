@@ -7,7 +7,7 @@ dependencies {
     // Required to ensure the correct Kafka Server version
     testImplementation('com.salesforce.kafka.test:kafka-junit5') {
         version {
-            strictly '3.2.3'
+            strictly '3.2.5'
         }
     }
 }
