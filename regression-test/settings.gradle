@@ -20,5 +20,10 @@ file('.').eachDir { dir ->
         if (System.env.RUN_6 == 'true' && dir.name.contains("6.")) {
             include "${dir.name}"
         }
+
+        // Add all modules for 7.*
+        if (System.env.RUN_7 == 'true' && dir.name.contains("7.")) {
+            include "${dir.name}"
+        }
     }
 }
