@@ -1,6 +1,6 @@
 package com.datarocks.schemaregistry.test;
 
-public class RegressionTest70X extends RegressionTest {
+public class RegressionTest71X extends RegressionTest {
 
   @Override
   public String topic() {
