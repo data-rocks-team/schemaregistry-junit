@@ -28,7 +28,7 @@ allprojects {
 }
 
 ext {
-    apacheCuratorVersion = '5.2.0'
+    apacheCuratorVersion = '5.4.0'
     assertjVersion = '3.23.1'
     confluentVersion = '7.3.3'
     kafkaJunitVersion = '3.2.5'
